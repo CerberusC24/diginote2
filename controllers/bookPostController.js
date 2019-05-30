@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const {
   BookPost
-} = require("../models/indexModel");
+} = require("../models");
 
 // export a series of methods for handling our routes:
 
@@ -12,30 +12,30 @@ const getAllBookPost = async (req, res) => {
       PostId: req.params.postid
     }
   })
-  .then(dbBookPostData => res.json(dbBookPostData))
-  .catch(err => res.json(err));
+    .then(dbBookPostData => res.json(dbBookPostData))
+    .catch(err => res.json(err));
 }
 
 //2. get back all posts related to a book
-const getAllPostBook = async(req, res) => {
+const getAllPostBook = async (req, res) => {
   BookPost.findAll({
     where: {
       BookId: req.params.bookid
     }
   })
-  .then(dbBookPostData => res.json(dbBookPostData))
-  .catch(err => res.json(err));
+    .then(dbBookPostData => res.json(dbBookPostData))
+    .catch(err => res.json(err));
 }
 
 //3. create a new BookPost
 const newBookPost = (req, res) => {
   console.log(req.body);
   const {
-  BookId, PostId
+    BookId, PostId
   } = req.body;
   BookPost.create({
-      BookId, PostId,
-    })
+    BookId, PostId,
+  })
     .then(dbBookPostData => res.json(dbBookPostData))
     .catch(err => {
       console.log(err);
