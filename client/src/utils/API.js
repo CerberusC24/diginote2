@@ -172,4 +172,39 @@ export const spotifyThis = spotifyData => {
   return axios.get(`/api/external/song`, spotifyData);
 };
 
+export default {
+  login,
+  register,
+  deleteUser,
+  deleteUserPost,
+  deleteUserCategory,
+  deletePostBook,
+  deleteUserSong,
+  deletePostMovie,
+  getAllBookPost,
+  getAllBooks,
+  getAllCategories,
+  getAllCategoryPost,
+  getAllMoviePost,
+  getAllMovies,
+  getAllPostBook,
+  getAllPostCategory,
+  getAllPostMovie,
+  getAllPostSong,
+  getAllSongs,
+  getAllSongPost,
+  getPostByCategory,
+  getUserPost,
+  newPost,
+  newBook,
+  newCategory,
+  newMovie,
+  newSong,  
+  newBookPost,
+  newSongPost,
+  newMoviePost,
+  newCategoryPost,
+  updateUserPost,
+}
+
 

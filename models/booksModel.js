@@ -1,6 +1,3 @@
-/* eslint-disable func-names */
-/* eslint-disable eol-last */
-// Book table that tracks title, author, pages, year released, plot and rating
 module.exports = function (sequelize, DataTypes) {
   const Book = sequelize.define('Book', {
     title: {
