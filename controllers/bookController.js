@@ -11,7 +11,10 @@ const getAllBooks = async (req, res) => {
 
   })
   .then(dbBookData => res.json(dbBookData))
-  .catch(err => res.json(err));
+  .catch(err =>{
+    console.log(err);
+    res.json(err);
+  });
 }
 
 //2. create a new book

@@ -7,18 +7,18 @@ const {
   updateUserPost
 } = require("../../controllers/postController")
 
-// GET and POST at /api/post
+// GET and POST at /api/posts
 router
   .route("/")
   .get(withAuth, getUserPosts)
   .post(withAuth, newPost);
 
-// DELETE at /api/post/delete:id  
+// DELETE at /api/posts/delete:id  
   router
   .route("/delete/:id")
   .delete(withAuth, deleteUserPost);
 
-// PUT at /api/post/update/:id  
+// PUT at /api/posts/update/:id  
   router
   .route("/update/:id")
   .put(withAuth, updateUserPost);  

@@ -32,11 +32,6 @@ module.exports = function (sequelize, DataTypes) {
       onDelete: "cascade"
     });
 
-    Post.belongsToMany(models.Img, {
-      through: 'ImgPost',
-      onDelete: "cascade"
-    });
-
     Post.belongsToMany(models.Song, {
       through: 'SongPost',
       onDelete: "cascade"
