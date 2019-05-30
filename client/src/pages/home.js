@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import LoginForm from "../components/login-components/loginform";
+import RegisterForm from "../components/login-components/registerform"
 class Home extends Component {
   state = {
 
@@ -7,7 +8,9 @@ class Home extends Component {
 
   render()  {
     return (
-      <h1>Hi from the homepage</h1>
+      <div>
+        <RegisterForm />
+      </div>
     )
     
   }
