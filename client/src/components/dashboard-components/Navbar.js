@@ -2,9 +2,10 @@ import React from 'react';
 
 function NavbarTabs(props) {
   return (
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="navbar-brand">Welcome, User</div>
-      <ul className="nav nav-pills justify-content-end">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light row">
+      <div className="navbar-brand">Welcome, User</div>
+      <button className="btn btn-danger">Log Out</button>
+      <ul className="nav nav-pills ml-auto">
         <li className="nav-item">
           <a href="#notes" onClick={() => props.handlePageChange("Notes")} className={`nav-link ${props.currentPage === 'Notes' ? 'active' : ''}`}>
             Home
@@ -16,6 +17,7 @@ function NavbarTabs(props) {
         </a>
         </li>
       </ul>
+
     </nav>
   );
 }
