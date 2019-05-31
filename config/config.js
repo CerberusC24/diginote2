@@ -4,7 +4,7 @@ module.exports = {
   development: {
     username: 'root',
     password: process.env.USERPASSWORD,
-    database: 'diginote',
+    database: 'diginote2',
     host: 'localhost',
     dialect: 'mysql',
   },

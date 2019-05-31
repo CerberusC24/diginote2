@@ -32,7 +32,7 @@ const getPostbyCategory = async (req, res) => {
 const deleteUserCategory = async (req, res) => {
   Category.destroy({
       where: {
-        id: req.body.id
+        id: req.params.id
       }
     })
     .then(dbCategoryData => res.json(dbCategoryData))

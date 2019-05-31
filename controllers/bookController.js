@@ -1,15 +1,13 @@
 const jwt = require("jsonwebtoken");
 const {
   Book
-} = require("../models/indexModel");
+} = require("../models");
 
 // export series of methods for handling routes:
 
 //1. get back all books
 const getAllBooks = async (req, res) => {
-  Book.findAll({
-
-  })
+  Book.findAll({})
   .then(dbBookData => res.json(dbBookData))
   .catch(err =>{
     console.log(err);
@@ -29,12 +27,16 @@ const newBook = (req, res) => {
 
 //3. delete book
 const deletePostBook = async (req, res) => {
+
   Book.destroy({
       where: {
-        id: req.body.id
+        id: req.params.id
       }
     })
-    .then(dbBookData => res.json(dbBookData))
+    .then(dbBookData => 
+      res.json(dbBookData),
+      console.log(`Book has been successfully deleted`),
+      res.json(`Book has been successfully deleted`))
     .catch(err => res.json(err));
 }
 

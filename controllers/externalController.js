@@ -2,10 +2,55 @@ require('dotenv').config();
 const moment = require('moment');
 const axios = require('axios');
 const Spotify = require('node-spotify-api');
-const keys = require('../keys');
+const spotify = new Spotify(
+  {
+    id: process.env.SPOTIFY_ID,
+    secret: process.env.SPOTIFY_SECRET
+  });
+const {
+  Book, Song, Movie
+} = require("../models");
 
+
+// Begin Function for running the spotify api request and adding results to database
+const spotifyThis = (req, res) => {
+
+  const {
+    artist,
+    title
+  } = req.query
+
+  const query = `https://api.spotify.com/v1/search?type=track&q=${title}&${artist}&limit=1`;
+
+  spotify
+    .request(query)
+    .then((trackData) => {
+      res.json(trackData);
+
+      const songData = {
+        artist: trackData.tracks.items[0].artists[0].name,
+        title: trackData.tracks.items[0].name,
+        album: trackData.tracks.items[0].album.name,
+        date: moment(trackData.tracks.items[0].album.release_date, "YYYY-MM-DD").format("MM-DD-YYYY"),
+        previewLink: trackData.tracks.items[0].preview_url
+      }
+
+      Song.create(songData)
+        .then(dbSongData => res.json(dbSongData))
+        .catch(err => {
+          console.log(err);
+          res.json(err);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+}
+// End Function for running the spotify api request and adding results to database
+
+// Begin Function for running the google-books api request and adding results to database
 function getGoogleBook(req, res) {
-  console.log(req.query);
   const {
     title,
     author
@@ -18,80 +63,75 @@ function getGoogleBook(req, res) {
       q: query
     },
   }).then((response) => {
-
     res.json(response.data);
+
+    const bookData = {
+      cover: response.data.items[0].volumeInfo.imageLinks.thumbnail,
+      title: response.data.items[0].volumeInfo.title,
+      authors: response.data.items[0].volumeInfo.authors.toString(),
+      pages: response.data.items[0].volumeInfo.pageCount,
+      year: moment(response.data.items[0].volumeInfo.publishedDate, "YYYY-MM-DD").format("MM-DD-YYYY"),
+      plot: response.data.items[0].volumeInfo.description
+    }
+
+    Book.create(bookData)
+      .then(dbBookData => {
+        res.json(dbBookData)
+        console.log(dbBookData)
+      })
+      .catch(err => {
+        console.log(err);
+        res.json(err);
+      });
   })
     .catch((error) => {
       console.log(error);
       res.json(error);
     });
 }
+// End Function for running the google-books api request and adding results to database
 
-// GET '/api/searchsong'
-// Parameters = artist & track
-// example of query => localhost:3000/api/searchsong?artist=beatles&track=come+together
+// Begin Function for running the OMDB api request and adding results to database
+function movieThis(req, res) {
 
-const spotify = new Spotify(keys.spotify);
+  const {
+    title
+  } = req.query
 
-const spotifyThis = (req, res) => {
-  console.log(req.query)
-  var artist = req.query.artist
-  var title = req.query.title
-
-  const queryString = `https://api.spotify.com/v1/search?type=track&q=title:${title}&artist:${artist}&limit=10`;
-
-  spotify
-    .request(queryString, (err, data) => {
-      if (err) {
-        console.log(err);
-      }
-      res.json(data);
-    })
-    .then(function (response) {
-      console.log(response)
-
-      var artist = response.tracks.items[0].artists[0].name
-      var title = response.tracks.items[0].name;
-      var album = response.tracks.items[0].album.name;
-      var previewLink = response.tracks.items[0].preview_url;
-
-      console.log(`
-
-    ============================================
-    Artist: ${artist}
-    Song Title: ${title}
-    Album Name: ${album}
-    Preview: ${previewLink}
-    ============================================
-`);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json(err);
-    });
-}
-
-function movieThis() {
-  let searchQuery;
+  const query = title
 
   axios
-    .get(`http://www.omdbapi.com/?t=${searchQuery}&apikey=${OMDB_API_KEY}`)
-    .then((response) => {
-      console.log(`
-      Movie Title: ${response.data.Title}
-      Release Date: ${moment(response.data.Released, 'DD MMM YYYY').format('MM-DD-YYYY')}
-      IMDB Rating: ${response.data.Ratings[0].Value}
-      Rotten Tomatoes Rating: ${response.data.Ratings[1].Value}
-      Country of Origin: ${response.data.Country}
-      Language: ${response.data.Language}
-      Plot Summary: ${response.data.Plot}
-      Actors: ${response.data.Actors}
-`);
+    .get(`http://www.omdbapi.com`, {
+      params: {
+        t: query,
+        apikey: process.env.OMDBKEY
+      }
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then((response) => {
+      res.json(response.data);
+
+      const movieData = {
+        poster: response.data.Poster,
+        title: response.data.Title,
+        year: moment(response.data.Released, 'DD MMM YYYY').format('MM-DD-YYYY'),
+        plot: response.data.Plot,
+        cast: response.data.Actors,
+        rated: response.data.Rated
+      }
+
+      Movie.create(movieData)
+        .then(dbMovieData => res.json(dbMovieData))
+        .catch(err => {
+          console.log(err);
+          res.json(err);
+        });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.json(error);
+    })
 }
+// End Function for running the OMDB api request and adding results to database
 
 module.exports = {
   spotifyThis,

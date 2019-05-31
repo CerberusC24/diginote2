@@ -14,7 +14,7 @@ router
 
 // DELETE at /api/book/delete/:id
 router
-  .route('/delete/:id')
+  .route('/:id')
   .delete(withAuth, deletePostBook);
 
 module.exports = router;

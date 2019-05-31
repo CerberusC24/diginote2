@@ -1,7 +1,11 @@
 module.exports = function (sequelize, DataTypes) {
   const Book = sequelize.define('Book', {
-    title: {
+    cover: {
       type: DataTypes.STRING,
+      allowNull: true
+    },
+    title: {
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     authors: {
@@ -16,8 +20,8 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    rating: {
-      type: DataTypes.INTEGER,
+    plot: {
+      type: DataTypes.TEXT,
       allowNull: true,
     },
   });

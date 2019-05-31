@@ -13,14 +13,11 @@ router
   .get(withAuth, getUserPosts)
   .post(withAuth, newPost);
 
-// DELETE at /api/posts/delete:id  
+// DELETE at /api/posts/delete 
   router
-  .route("/delete/:id")
+  .route("/:id")
+  .put(withAuth, updateUserPost)
   .delete(withAuth, deleteUserPost);
 
-// PUT at /api/posts/update/:id  
-  router
-  .route("/update/:id")
-  .put(withAuth, updateUserPost);  
 
 module.exports = router;

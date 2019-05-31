@@ -1,12 +1,6 @@
 const jwt = require("jsonwebtoken");
 const {
-  User,
-  Post,
-  Book,
-  Category,
-  Img,
-  Song,
-  Video
+  Post
 } = require("../models");
 
 // create a new post
@@ -15,6 +9,7 @@ const newPost = (req, res) => {
     title,
     body
   } = req.body;
+
   Post.create({
       title,
       body,
@@ -48,7 +43,7 @@ const getUserPosts = async (req, res) => {
 const deleteUserPost = async (req, res) => {
   Post.destroy({
       where: {
-        id: req.body.id
+        id: req.params.id
       }
     })
     .then(dbPostData => res.json(dbPostData))
@@ -61,7 +56,9 @@ const updateUserPost = async (req, res) => {
       title: req.body.title,
       body: req.body.body,
     }, {
-      where: req.body.id
+      where: {
+        id: req.params.id
+      }
     })
     .then(dbPostData => res.json(dbPostData))
     .catch(err => res.json(err));

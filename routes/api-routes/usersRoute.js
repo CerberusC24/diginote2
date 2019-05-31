@@ -24,7 +24,7 @@ router
 
 // DELETE at /api/users/delete/:id
 router
-  .route("/delete/:id")
+  .route("/:id")
   .delete(withAuth, deleteUser)
 
 module.exports = router;
