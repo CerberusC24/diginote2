@@ -14,7 +14,7 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true,
     },
     plot: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: true,
     },
     cast: {
@@ -22,10 +22,6 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true,
     },
     rated: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    rating: {
       type: DataTypes.STRING,
       allowNull: true,
     }

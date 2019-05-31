@@ -13,7 +13,7 @@ router
   .post(withAuth, newSong);
 
 // DELETE at /api/song/delete/:id  
-router.route("/delete/:id")
+router.route("/:id")
   .delete(withAuth, deleteUserSong);
 
 module.exports = router;

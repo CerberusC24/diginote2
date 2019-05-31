@@ -40,7 +40,7 @@ export const newBookPost = bookPostData => {
 };
 
 export const getAllBookPost = postID => {
-  return axios.get(`/api/bookposts/post/postID`);
+  return axios.get(`/api/bookposts/post/postID`, postID);
 };
 
 export const getAllPostBook = bookID => {
@@ -54,7 +54,7 @@ export const getAllCategories = () => {
 };
 
 export const newCategory = categoryData => {
-  return axios.post(`/api/category` categoryData);
+  return axios.post(`/api/category`, categoryData);
 };
 
 export const getPostByCategory = categoryID => {
