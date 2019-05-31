@@ -22,7 +22,7 @@ router
   .route("/register")
   .post(register);
 
-// DELETE at /api/users/delete/:id
+// DELETE at /api/users/:id
 router
   .route("/:id")
   .delete(withAuth, deleteUser)

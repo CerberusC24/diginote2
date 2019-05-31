@@ -32,7 +32,9 @@ const spotifyThis = (req, res) => {
         title: trackData.tracks.items[0].name,
         album: trackData.tracks.items[0].album.name,
         date: moment(trackData.tracks.items[0].album.release_date, "YYYY-MM-DD").format("MM-DD-YYYY"),
-        previewLink: trackData.tracks.items[0].preview_url
+        previewLink: trackData.tracks.items[0].preview_url,
+        albumCoverLarge: trackData.tracks.items[0].album.images[1].url,
+        albumCoverSmall: trackData.tracks.items[0].album.images[2].url
       }
 
       Song.create(songData)
