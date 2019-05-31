@@ -8,11 +8,11 @@ const {
 //1. get back all books
 const getAllBooks = async (req, res) => {
   Book.findAll({})
-  .then(dbBookData => res.json(dbBookData))
-  .catch(err =>{
-    console.log(err);
-    res.json(err);
-  });
+    .then(dbBookData => res.json(dbBookData))
+    .catch(err => {
+      console.log(err);
+      res.json(err);
+    });
 }
 
 //2. create a new book
@@ -29,11 +29,11 @@ const newBook = (req, res) => {
 const deletePostBook = async (req, res) => {
 
   Book.destroy({
-      where: {
-        id: req.params.id
-      }
-    })
-    .then(dbBookData => 
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(dbBookData =>
       res.json(dbBookData),
       console.log(`Book has been successfully deleted`),
       res.json(`Book has been successfully deleted`))

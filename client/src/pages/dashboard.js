@@ -1,15 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Dashboard from '../components/dashboard-components/Dashboard'
 
-class Dashboard extends Component {
-  state = {
-
-  }
-
-  render()  {
-    return (
-      <h1>Hi from the dashboard</h1>
-    )
-  }
+function userDashboard() {
+  return (
+    <Dashboard />
+  )
 }
 
-export default Dashboard
+export default userDashboard;
