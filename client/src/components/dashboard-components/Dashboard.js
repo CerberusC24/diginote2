@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import NavbarTabs from './Navbar'
+import Notepad from './Notepad'
+import NotesBar from './NotesBar'
+import NoteMedia from './NoteMedia'
+import Search from './Search/Search'
 
 class Dashboard extends Component {
   state = {
@@ -14,7 +18,14 @@ class Dashboard extends Component {
   checkPage = () => {
     if (this.state.currentPage === "Notes") {
       return (
-        <h1>Notes</h1>
+        <div className="container-fluid row mt-5">
+          <NotesBar />
+          <div className="column col-12 col-md-6">
+            <Search />
+            <Notepad />
+          </div>
+          <NoteMedia />
+        </div>
       )
     }
     if (this.state.currentPage === "Media") {
