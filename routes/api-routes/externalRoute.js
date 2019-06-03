@@ -6,15 +6,15 @@ const {
 } = require('../../controllers/externalController');
 
 router
-  .route('/song')
+  .route('/songs')
   .get(spotifyThis);
 
 router
-  .route('/movie')
+  .route('/movies')
   .get(movieThis);
 
 router
-  .route('/book')
+  .route('/books')
   .get(getGoogleBook);
 
 module.exports = router;

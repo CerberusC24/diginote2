@@ -31,10 +31,13 @@ const getAllSongs = async (req, res) => {
 const deleteUserSong = async (req, res) => {
   Song.destroy({
       where: {
-        id: req.body.id
+        id: req.params.id
       }
     })
-    .then(dbSongData => res.json(dbSongData))
+    .then(dbSongData => 
+      res.json(dbSongData),
+      console.log(`Song has been successfully deleted`),
+      res.json(`Song has been successfully deleted`))
     .catch(err => res.json(err));
 }
 

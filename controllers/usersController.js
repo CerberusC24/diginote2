@@ -98,7 +98,7 @@ const getUserInfo = async (req, res) => {
 const deleteUser = async (req, res) => {
   Post.destroy({
     where: {
-      id: req.body.id
+      id: req.params.id
     }
   })
     .then(dbUserData => res.json(dbUserData))

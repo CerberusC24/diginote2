@@ -28,10 +28,13 @@ const getAllMovies = async (req, res) => {
 const deletePostMovie = async (req, res) => {
   Movie.destroy({
       where: {
-        id: req.body.id
+        id: req.params.id
       }
     })
-    .then(dbVidData => res.json(dbVidData))
+    .then(dbVidData => 
+      res.json(dbVidData),
+      console.log(`Movie has been successfully deleted`),
+      res.json(`Movie has been successfully deleted`))
     .catch(err => res.json(err));
 }
 

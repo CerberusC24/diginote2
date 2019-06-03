@@ -14,7 +14,7 @@ router
 
 // DELETE at /api/movie
 router
-  .route("/delete/:id")
+  .route("/:id")
   .delete(withAuth, deletePostMovie);
 
 module.exports = router;

@@ -13,14 +13,11 @@ router
   .get(withAuth, getAllCategories)
   .post(withAuth, newCategory);
 
-// GET posts by category at /api/category/:id
+// GET posts by category and DELETE categories by ID at:
+// /api/category/:id
 router
   .route("/:id")
   .get(withAuth, getPostbyCategory)
-
-// DELETE at /api/category/delete/:id
-router
-  .route("/delete/:id")
   .delete(withAuth, deleteUserCategory);
 
 module.exports = router;

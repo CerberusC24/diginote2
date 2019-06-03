@@ -40,7 +40,7 @@ export const newBookPost = bookPostData => {
 };
 
 export const getAllBookPost = postID => {
-  return axios.get(`/api/bookposts/post/postID`);
+  return axios.get(`/api/bookposts/post/postID`, postID);
 };
 
 export const getAllPostBook = bookID => {

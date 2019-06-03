@@ -1,15 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Dashboard from '../components/dashboard-components/Dashboard'
 
-class Dashboard extends Component {
+
+class userDashboard extends Component  {
+
   state = {
     token: this.props.location.state.token
   }
-
-  render()  {
+  render () {
     return (
-      <h1>Hi from the dashboard</h1>
+      <Dashboard />
     )
   }
+  
+
 }
 
-export default Dashboard
+export default userDashboard;
