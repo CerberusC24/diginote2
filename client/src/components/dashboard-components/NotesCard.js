@@ -1,18 +1,18 @@
 
 import React from 'react';
 
-function NotesCard() {
+function NotesCard(props) {
   return (
     <div className="list-group-item">
       <div>
         <h5 className="card-title">
-          Test Title
+          {props.title}
         </h5>
         <h6 className="card-subtitle mb-2 text-muted">
-          Date Submitted
-          </h6>
+          {props.date}
+        </h6>
         <p className="card-text">
-          Some quick example text to build on the card title and make up the bulk of the card's content.
+          {props.body}
         </p>
       </div>
     </div>

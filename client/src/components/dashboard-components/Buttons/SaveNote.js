@@ -1,8 +1,8 @@
 import React from 'react';
 
-function SaveNote() {
+function SaveNote(props) {
   return (
-    <button className="btn btn-info">
+    <button onClick={props.saveNote} className="btn btn-info">
       <i className="far fa-save mr-1"></i>
       Save
     </button>
