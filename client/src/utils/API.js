@@ -146,8 +146,9 @@ export const login = loginData => {
 };
 
 export const register = registerData => {
-  return axios.post(`/api/users/register`, registerData);
+  axios.post(`/api/users/register`, registerData)
 };
+
 
 export const deleteUser = userID => {
   return axios.delete(`/api/users/delete/${userID}`);
