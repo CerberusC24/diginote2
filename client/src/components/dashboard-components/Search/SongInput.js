@@ -1,13 +1,13 @@
 import React from 'react';
 
-function MovieInput() {
+function SongInput() {
   return (
-    <div className="d-flex flex-column">
-      <input type="text" placeholder="Title" />
-      <input type="text" placeholder="Artist" />
-      <button className="btn btn-info btn-sm">Add Song</button>
+    <div className="input-group">
+      <input className="form-control" type="text" placeholder="Title" />
+      <input className="form-control" type="text" placeholder="Artist" />
+      <button className="btn btn-info ml-3">Add Song</button>
     </div>
   )
 }
 
-export default MovieInput;
+export default SongInput;

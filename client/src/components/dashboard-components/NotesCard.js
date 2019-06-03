@@ -3,8 +3,8 @@ import React from 'react';
 
 function NotesCard() {
   return (
-    <div className="card mb-2">
-      <div className="card-body">
+    <div className="list-group-item">
+      <div>
         <h5 className="card-title">
           Test Title
         </h5>

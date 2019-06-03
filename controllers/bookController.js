@@ -1,11 +1,8 @@
 const jwt = require("jsonwebtoken");
 const {
   Book
-<<<<<<< HEAD
 } = require("../models/");
-=======
-} = require("../models");
->>>>>>> 3db61307aaa58c1b4a1a18ad2b0f21b6a2c1f7c6
+
 
 // export series of methods for handling routes:
 
