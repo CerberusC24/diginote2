@@ -179,18 +179,18 @@ export const deleteUser = userID => {
 
 // 1.  Google Book axios calls:
 export const getGoogleBook = googleBookData => {
-  return axios.get(`/api/external/books`, { params: googleBookData});
+  return axios.get(`/api/external/books`, { params: googleBookData });
 };
 
 // 2. OMDB axios call:
 export const movieThis = omdbData => {
-  return axios.get(`/api/external/movies`, { params: omdbData});
+  return axios.get(`/api/external/movies`, { params: omdbData });
 };
 
 // 3. Spotify axios call:
 
 export const spotifyThis = spotifyData => {
-  return axios.get(`/api/external/songs`, { params: spotifyData});
+  return axios.get(`/api/external/songs`, { params: spotifyData });
 };
 
 export default {
@@ -220,7 +220,7 @@ export default {
   newBook,
   newCategory,
   newMovie,
-  newSong,  
+  newSong,
   newBookPost,
   newSongPost,
   newMoviePost,
