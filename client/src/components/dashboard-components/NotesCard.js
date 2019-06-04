@@ -1,7 +1,11 @@
 
 import React from 'react';
+import moment from 'moment';
+import DeleteNote from './Buttons/DeleteNote'
+import EditNote from './Buttons/EditNote'
 
 function NotesCard(props) {
+
   return (
     <div className="list-group-item">
       <div>
@@ -9,11 +13,15 @@ function NotesCard(props) {
           {props.title}
         </h5>
         <h6 className="card-subtitle mb-2 text-muted">
-          {props.createdAt}
+          {moment(props.createdAt).format("MMMM Do, YYYY [at] hh:mm A")}
         </h6>
         <p className="card-text">
           {props.body}
         </p>
+      </div>
+      <div className="row justify-content-end">
+        <EditNote />
+        <DeleteNote />
       </div>
     </div>
   )
