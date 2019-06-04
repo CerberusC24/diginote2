@@ -12,6 +12,7 @@ import AddNote from './Buttons/AddNote'
 import API from '../../utils/API'
 
 class Dashboard extends Component {
+  // STATE
   state = {
     currentPage: "Notes",
     title: "",
@@ -29,10 +30,13 @@ class Dashboard extends Component {
     });
   }
 
+  // HANDLES CHANGE BETWEEN NOTES AND MEDIA
   handlePageChange = page => {
     this.setState({ currentPage: page });
   };
 
+
+  // POST note to database 
   saveNote = () => {
     API.newPost({
       title: this.state.title,
@@ -47,9 +51,10 @@ class Dashboard extends Component {
   }
 
 
-
+  // RENDERS ACTIVE PAGE
   checkPage = () => {
     if (this.state.currentPage === "Notes") {
+      // NOTE PAGE RETURNS MAIN DASHBOARD SET UP
       return (
         <React.Fragment>
           <div>
@@ -76,6 +81,7 @@ class Dashboard extends Component {
         </React.Fragment>
       )
     }
+    // RETURNS MEDIA PAGE (Under Construction)
     if (this.state.currentPage === "Media") {
       return (
         <h1>Media</h1>
@@ -88,6 +94,7 @@ class Dashboard extends Component {
 
   render() {
     return (
+      // NAVBAR
       <div>
         <NavbarTabs
           currentPage={this.state.currentPage}
