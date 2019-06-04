@@ -10,14 +10,22 @@ import DeleteNote from './Buttons/DeleteNote'
 import EditNote from './Buttons/EditNote'
 import AddNote from './Buttons/AddNote'
 import API from '../../utils/API'
+import NotesCard from './NotesCard'
 
 class Dashboard extends Component {
   // STATE
   state = {
     currentPage: "Notes",
     title: "",
-    body: ""
+    body: "",
+    createdAt: "",
+    userId: "",
+    notes: []
   };
+
+  componentDidMount() {
+    this.getSavedNotes();
+  }
 
   handleInputChange = event => {
     // Getting the value and name of the input which triggered the change
@@ -35,25 +43,40 @@ class Dashboard extends Component {
     this.setState({ currentPage: page });
   };
 
-
-  // POST note to database 
-  saveNote = () => {
+  saveAndRender = () => {
+    // POST note to database 
     API.newPost({
       title: this.state.title,
       body: this.state.body
     })
-      .then(function (response) {
-        console.log(response.data)
-      })
+      .then(this.getSavedNotes)
       .catch(function (err) {
         console.log(err)
       });
+
+  }
+  // GET all user's posts including new one
+  // will return array of all posts by this user
+  getSavedNotes = () => {
+    API.getUserPost()
+      .then((response) => {
+        this.setState({
+          notes: response.data
+        })
+      })
+      .catch(function (err) {
+        console.log(err);
+      })
+
   }
 
 
   // RENDERS ACTIVE PAGE
   checkPage = () => {
+    const { notes } = this.state;
+
     if (this.state.currentPage === "Notes") {
+
       // NOTE PAGE RETURNS MAIN DASHBOARD SET UP
       return (
         <React.Fragment>
@@ -61,7 +84,20 @@ class Dashboard extends Component {
             < Banner />
           </div>
           <div className="container-fluid row mt-5">
-            <NotesBar />
+            <NotesBar>
+              {
+                notes.map(({ id, title, createdAt, body }) => {
+                  return (
+                    <NotesCard
+                      title={title}
+                      createdAt={createdAt}
+                      body={body}
+                      key={id}
+                    />
+                  )
+                })
+              }
+            </NotesBar>
             <div className="column col-12 col-md-6">
               <Search />
               <Notepad
@@ -71,7 +107,7 @@ class Dashboard extends Component {
               />
               <div className="row justify-content-between mx-3">
                 < AddNote />
-                < SaveNote saveNote={this.saveNote} />
+                < SaveNote saveAndRender={this.saveAndRender} />
                 < EditNote />
                 < DeleteNote />
               </div>
