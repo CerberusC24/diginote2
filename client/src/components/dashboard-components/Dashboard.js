@@ -29,6 +29,7 @@ class Dashboard extends Component {
     });
   }
 
+
   handlePageChange = page => {
     this.setState({ currentPage: page });
   };
@@ -92,6 +93,7 @@ class Dashboard extends Component {
         <NavbarTabs
           currentPage={this.state.currentPage}
           handlePageChange={this.handlePageChange}
+          logoutOnClick={this.props.logoutOnClick}
         />
         {this.checkPage()}
       </div>
