@@ -24,8 +24,6 @@ class userDashboard extends Component {
       <Dashboard token={this.state.token} logoutOnClick={this.logoutOnClick}/>
     
   }
-
-
 }
 
 export default userDashboard;
