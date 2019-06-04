@@ -62,7 +62,7 @@ export const getAllCategories = () => {
 };
 
 export const getCategoryById = categoryId => {
-  return axios.get(`/api/category`, categoryId);
+  return axios.get(`/api/category`, categoryID);
 };
 
 export const newCategory = categoryData => {
