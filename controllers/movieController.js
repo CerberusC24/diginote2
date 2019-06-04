@@ -24,6 +24,20 @@ const getAllMovies = async (req, res) => {
   .catch(err => res.json(err));
 };
 
+// get back all Movies
+const getMovieById = async (req, res) => {
+
+  const movieId = req.body.id
+
+  Movie.findAll({
+    where: {
+      id: movieId
+    }
+  })
+  .then(dbMovieData => res.json(dbMovieData))
+  .catch(err => res.json(err));
+};
+
 // delete user Movies
 const deletePostMovie = async (req, res) => {
   Movie.destroy({
@@ -41,5 +55,6 @@ const deletePostMovie = async (req, res) => {
 module.exports = {
   newMovie,
   getAllMovies,
-  deletePostMovie
+  deletePostMovie,
+  getMovieById
 };

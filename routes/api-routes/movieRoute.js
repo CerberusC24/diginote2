@@ -3,13 +3,15 @@ const withAuth = require("../../middleware/authentication");
 const {
   newMovie,
   getAllMovies,
-  deletePostMovie
+  deletePostMovie,
+  getMovieById
 } = require("../../controllers/movieController")
 
 // GET and POST at /api/movie
 router
   .route("/")
   .get(withAuth, getAllMovies)
+  .get(withAuth, getMovieById)
   .post(withAuth, newMovie);
 
 // DELETE at /api/movie

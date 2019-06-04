@@ -3,13 +3,15 @@ const withAuth = require("../../middleware/authentication");
 const {
   newSong,
   getAllSongs,
-  deleteUserSong
+  deleteUserSong,
+  getSongById
 } = require("../../controllers/songController")
 
 // GET and POST at /api/song
 router
   .route("/")
   .get(withAuth, getAllSongs)
+  .get(withAuth, getSongById)
   .post(withAuth, newSong);
 
 // DELETE at /api/song/delete/:id  

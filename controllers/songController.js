@@ -27,6 +27,21 @@ const getAllSongs = async (req, res) => {
   .catch(err => res.json(err));
 };
 
+// get back song by id
+const getSongById = async (req, res) => {
+
+  const songId = req.body.id
+
+  Song.findAll({
+    where: {
+      id: songId
+    }
+
+  })
+  .then(dbSongData => res.json(dbSongData))
+  .catch(err => res.json(err));
+};
+
 // delete user songs
 const deleteUserSong = async (req, res) => {
   Song.destroy({
@@ -44,5 +59,6 @@ const deleteUserSong = async (req, res) => {
 module.exports = {
   newSong,
   getAllSongs,
-  deleteUserSong
+  deleteUserSong,
+  getSongById
 };

@@ -19,6 +19,14 @@ module.exports = function (sequelize, DataTypes) {
     previewLink: {
       type: DataTypes.TEXT,
       allowNull: true
+    },
+    albumCoverLarge: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    albumCoverSmall: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   });
 

@@ -31,7 +31,9 @@ const spotifyThis = (req, res) => {
         title: trackData.tracks.items[0].name,
         album: trackData.tracks.items[0].album.name,
         date: moment(trackData.tracks.items[0].album.release_date, "YYYY-MM-DD").format("MM-DD-YYYY"),
-        previewLink: trackData.tracks.items[0].preview_url
+        previewLink: trackData.tracks.items[0].preview_url,
+        albumCoverLarge: trackData.tracks.items[0].album.images[1].url,
+        albumCoverSmall: trackData.tracks.items[0].album.images[2].url
       }
 
       Song.create(songData)
@@ -62,7 +64,6 @@ function getGoogleBook(req, res) {
       q: query
     },
   }).then((response) => {
-    res.json(response.data);
 
     const bookData = {
       cover: response.data.items[0].volumeInfo.imageLinks.thumbnail,
@@ -107,8 +108,6 @@ function movieThis(req, res) {
       }
     })
     .then((response) => {
-      console.log("hit .then()");
-        console.log(response.data);
 
       const movieData = {
         poster: response.data.Poster,

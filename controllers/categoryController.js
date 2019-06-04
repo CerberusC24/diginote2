@@ -14,6 +14,21 @@ const getAllCategories = async (req, res) => {
   .catch(err => res.json(err));
 }
 
+//1a. get back all categories
+const getCategoryById = async (req, res) => {
+
+  const categoryId = req.body.id
+
+  Category.findAll({
+    where: {
+      id: categoryId
+    }
+
+  })
+  .then(dbPostData => res.json(dbPostData))
+  .catch(err => res.json(err));
+}
+
 //2. getting the user's categories
 const getPostbyCategory = async (req, res) => {
   Category.findAll({
@@ -60,5 +75,6 @@ module.exports = {
   newCategory,
   getAllCategories,
   getPostbyCategory,
-  deleteUserCategory
+  deleteUserCategory,
+  getCategoryById
 };
