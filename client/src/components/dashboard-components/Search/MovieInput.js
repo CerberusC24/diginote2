@@ -2,9 +2,9 @@ import React from 'react';
 
 function MovieInput() {
   return (
-    <div className="d-flex flex-column">
-      <input type="text" placeholder="Title" />
-      <button className="btn btn-info btn-sm">Add Movie</button>
+    <div className="input-group">
+      <input className="form-control" type="text" placeholder="Title" />
+      <button className="btn btn-info ml-3">Add Movie</button>
     </div>
   )
 }

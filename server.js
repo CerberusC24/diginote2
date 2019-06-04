@@ -1,5 +1,6 @@
 // Dependencies:
 const express = require('express');
+const cookieParser = require('cookie-parser');
 
 // Sets up the Express App:
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.urlencoded({
   extended: true,
 }));
 app.use(express.json());
+app.use(cookieParser());
 
 // If the app is in production, then serve up client/build as static in express
 if (process.env.NODE_ENV === "production") {
