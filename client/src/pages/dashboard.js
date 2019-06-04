@@ -14,16 +14,19 @@ class userDashboard extends Component {
       token: ""
     })
 
-
-  }
-  render () {
     if (!this.state.token) {
       return <Redirect to="/" />
     }
-  
+
+  }
+  render () {
+    return (
+
       <Dashboard token={this.state.token} logoutOnClick={this.logoutOnClick}/>
     
-  }
+    )
+    
 }
 
+}
 export default userDashboard;
