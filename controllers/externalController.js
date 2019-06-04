@@ -99,7 +99,7 @@ function movieThis(req, res) {
   } = req.query
 
   const query = title
-
+  console.log(query);
   axios
     .get(`http://www.omdbapi.com`, {
       params: {
@@ -126,6 +126,7 @@ function movieThis(req, res) {
         });
     })
     .catch((error) => {
+      console.log("hit .catch()")
       console.log(error);
       res.json(error);
     })
