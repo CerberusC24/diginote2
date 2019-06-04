@@ -4,17 +4,18 @@ const {
   movieThis,
   getGoogleBook
 } = require('../../controllers/externalController');
+const withAuth = require('../../middleware/authentication')
 
 router
   .route('/songs')
-  .get(spotifyThis);
+  .get(withAuth, spotifyThis);
 
 router
   .route('/movies')
-  .get(movieThis);
+  .get(withAuth, movieThis);
 
 router
   .route('/books')
-  .get(getGoogleBook);
+  .get(withAuth, getGoogleBook);
 
 module.exports = router;

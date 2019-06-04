@@ -3,17 +3,21 @@ import BookInput from './BookInput'
 import MovieInput from './MovieInput'
 import SongInput from './SongInput'
 
+
 function Search() {
   const [activeTab, setActiveTab] = useState({
     tab: <SongInput />
   });
+
+  
 
   return (
     <React.Fragment>
       <nav>
         <div className="btn-group btn-block">
           <button onClick={() => setActiveTab({
-            ...activeTab, tab: <SongInput />
+            ...activeTab, tab: <SongInput
+            />
           })} className="btn btn-info m-1">Song</button>
 
           <button onClick={() => setActiveTab({

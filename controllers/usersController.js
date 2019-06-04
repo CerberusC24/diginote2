@@ -71,7 +71,7 @@ const login = async (req, res) => {
       });
 
       // sending webtoken to the front end
-      res.status(200).json(token);
+      res.cookie('token', token, {httpOnly: true}).status(200).json(token);
     };
   };
 };

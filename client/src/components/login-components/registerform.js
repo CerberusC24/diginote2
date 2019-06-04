@@ -32,7 +32,7 @@ function RegisterForm (props) {
         </label>
         <input id="password" className="form-control form-control-lg" type="password" placeholder="email@email.com" onChange={props.handleInputChange} value={props.password} name="password"/>
   
-        <input type="submit" class="btn btn-primary" />
+        <input type="submit" className="btn btn-primary" />
 
         <input type="button" className="btn btn-primary" onClick={props.loginClick} value="Login Existing User" />
         </div>

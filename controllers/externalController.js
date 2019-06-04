@@ -25,7 +25,6 @@ const spotifyThis = (req, res) => {
   spotify
     .request(query)
     .then((trackData) => {
-      res.json(trackData);
 
       const songData = {
         artist: trackData.tracks.items[0].artists[0].name,
@@ -99,7 +98,7 @@ function movieThis(req, res) {
   } = req.query
 
   const query = title
-
+  console.log(query);
   axios
     .get(`http://www.omdbapi.com`, {
       params: {
@@ -108,7 +107,8 @@ function movieThis(req, res) {
       }
     })
     .then((response) => {
-      res.json(response.data);
+      console.log("hit .then()");
+        console.log(response.data);
 
       const movieData = {
         poster: response.data.Poster,
@@ -127,6 +127,7 @@ function movieThis(req, res) {
         });
     })
     .catch((error) => {
+      console.log("hit .catch()")
       console.log(error);
       res.json(error);
     })

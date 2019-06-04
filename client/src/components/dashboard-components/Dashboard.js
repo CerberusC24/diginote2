@@ -10,6 +10,18 @@ class Dashboard extends Component {
     currentPage: "Notes"
   };
 
+  handleInputChange = event => {
+    // Getting the value and name of the input which triggered the change
+    let value = event.target.value;
+    const name = event.target.name;
+
+    // Updating the input's state
+    this.setState({
+      [name]: value
+    });
+  }
+
+  
 
   handlePageChange = page => {
     this.setState({ currentPage: page });
@@ -21,7 +33,7 @@ class Dashboard extends Component {
         <div className="container-fluid row mt-5">
           <NotesBar />
           <div className="column col-12 col-md-6">
-            <Search />
+            <Search handleInputChange={this.handleInputChange} />
             <Notepad />
           </div>
           <NoteMedia />
@@ -44,6 +56,7 @@ class Dashboard extends Component {
         <NavbarTabs
           currentPage={this.state.currentPage}
           handlePageChange={this.handlePageChange}
+          logoutOnClick={this.props.logoutOnClick}
         />
         {this.checkPage()}
       </div>
