@@ -14,6 +14,8 @@ import NotesCard from './NotesCard'
 
 // random comment to be deleted after merge
 
+// another random comment to be deleted after merge
+
 class Dashboard extends Component {
   // STATE
   state = {
