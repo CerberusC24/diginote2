@@ -3,7 +3,7 @@ import {Redirect} from 'react-router-dom';
 import Dashboard from '../components/dashboard-components/Dashboard'
 
 
-class userDashboard extends Component  {
+class userDashboard extends Component {
 
   state = {
     token: this.props.location.state.token
@@ -20,11 +20,11 @@ class userDashboard extends Component  {
     if (!this.state.token) {
       return <Redirect to="/" />
     }
-    return (
-      <Dashboard token={this.state.token} logoutOnClick={this.logoutOnClick}/>
-    )
-  }
   
+      <Dashboard token={this.state.token} logoutOnClick={this.logoutOnClick}/>
+    
+  }
+
 
 }
 
