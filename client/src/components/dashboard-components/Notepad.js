@@ -20,7 +20,7 @@ function Notepad(props) {
           className="form-control"
           id="noteTaker"
           rows="20"
-          placeholder="Write your note here...">{props.body}</textarea>
+          placeholder="Write your note here..."></textarea>
       </div>
     </form>
   )

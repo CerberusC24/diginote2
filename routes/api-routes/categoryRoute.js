@@ -4,7 +4,8 @@ const {
   newCategory,
   getAllCategories,
   getPostbyCategory,
-  deleteUserCategory
+  deleteUserCategory,
+  getCategoryById
 } = require("../../controllers/categoryController")
 
 // GET and POST at /api/category

@@ -9,7 +9,7 @@ function NotesCard(props) {
           {props.title}
         </h5>
         <h6 className="card-subtitle mb-2 text-muted">
-          {props.date}
+          {props.createdAt}
         </h6>
         <p className="card-text">
           {props.body}

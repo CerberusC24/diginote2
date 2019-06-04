@@ -3,7 +3,8 @@ const withAuth = require('../../middleware/authentication');
 const {
   newBook,
   getAllBooks,
-  deletePostBook
+  deletePostBook,
+  getBookById
 } = require('../../controllers/bookController');
 
 // GET and POST at /api/book

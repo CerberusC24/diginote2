@@ -59,5 +59,6 @@ const deleteUserSong = async (req, res) => {
 module.exports = {
   newSong,
   getAllSongs,
-  deleteUserSong
+  deleteUserSong,
+  getSongById
 };
