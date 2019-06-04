@@ -159,18 +159,18 @@ export const deleteUser = userID => {
 
 // 1.  Google Book axios calls:
 export const getGoogleBook = googleBookData => {
-  return axios.get(`/api/external/book`, googleBookData);
+  return axios.get(`/api/external/books`, { params: googleBookData});
 };
 
 // 2. OMDB axios call:
 export const movieThis = omdbData => {
-  return axios.get(`/api/external/movie`, omdbData);
+  return axios.get(`/api/external/movies`, { params: omdbData});
 };
 
 // 3. Spotify axios call:
 
 export const spotifyThis = spotifyData => {
-  return axios.get(`/api/external/song`, spotifyData);
+  return axios.get(`/api/external/songs`, { params: spotifyData});
 };
 
 export default {

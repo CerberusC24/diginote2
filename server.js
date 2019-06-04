@@ -17,12 +17,13 @@ app.use(express.urlencoded({
   extended: true,
 }));
 app.use(express.json());
+
 app.use(cookieParser());
 
 // If the app is in production, then serve up client/build as static in express
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static("client/build"));
+// }
 app.use(routes);
 
 // Syncing our sequelize models and then starting our Express app
