@@ -9,13 +9,16 @@ import SaveNote from './Buttons/SaveNote'
 import DeleteNote from './Buttons/DeleteNote'
 import EditNote from './Buttons/EditNote'
 import AddNote from './Buttons/AddNote'
-import API from '../../utils/API'
+import API, { getAllMovies, getAllBooks, getAllSongs } from '../../utils/API'
 
 class Dashboard extends Component {
   state = {
     currentPage: "Notes",
     title: "",
-    body: ""
+    body: "",
+    date: "",
+    postId: "",
+    note: []
   };
 
   handleInputChange = event => {
@@ -46,8 +49,6 @@ class Dashboard extends Component {
         console.log(err)
       });
   }
-
-
 
   checkPage = () => {
     if (this.state.currentPage === "Notes") {

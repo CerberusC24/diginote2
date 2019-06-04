@@ -39,6 +39,21 @@ const getUserPosts = async (req, res) => {
     .catch(err => res.json(err));
 };
 
+// getting the user's posts
+const getUserPostById = async (req, res) => {
+
+  const postId = req.body.id
+
+  Post.findAll({
+      where: {
+        id: postId 
+      },
+    })
+    .then(dbPostData => res.json(dbPostData))
+    .catch(err => res.json(err));
+};
+
+
 // delete user posts
 const deleteUserPost = async (req, res) => {
   Post.destroy({
@@ -70,5 +85,6 @@ module.exports = {
   newPost,
   getUserPosts,
   deleteUserPost,
-  updateUserPost
+  updateUserPost,
+  getUserPostById
 };

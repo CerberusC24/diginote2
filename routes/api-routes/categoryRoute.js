@@ -11,6 +11,7 @@ const {
 router
   .route("/")
   .get(withAuth, getAllCategories)
+  .get(withAuth, getCategoryById)
   .post(withAuth, newCategory);
 
 // GET posts by category and DELETE categories by ID at:

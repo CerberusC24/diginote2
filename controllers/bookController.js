@@ -17,6 +17,23 @@ const getAllBooks = async (req, res) => {
     });
 }
 
+//1a. get back a book by ID
+const getBookById = async (req, res) => {
+
+ const bookId = req.body.id
+
+  Book.findAll({
+    where: {
+      id: bookId
+    }
+  })
+    .then(dbBookData => res.json(dbBookData))
+    .catch(err => {
+      console.log(err);
+      res.json(err);
+    });
+}
+
 //2. create a new book
 const newBook = (req, res) => {
   Book.create(req.body)
@@ -45,5 +62,6 @@ const deletePostBook = async (req, res) => {
 module.exports = {
   newBook,
   getAllBooks,
-  deletePostBook
+  deletePostBook,
+  getBookById
 };

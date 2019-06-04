@@ -7,6 +7,10 @@ export const getUserPost = () => {
   return axios.get('/api/posts');
 };
 
+export const getUserPostById = postId => {
+  return axios.get(`/api/posts`, postId);
+}
+
 export const newPost = postData => {
   return axios.post('/api/posts', postData);
 };
@@ -24,6 +28,10 @@ export const updateUserPost = postID => {
 export const getAllBooks = () => {
   return axios.get(`/api/books`);
 };
+
+export const getBookById = bookId => {
+  return axios.get(`/api/books`, bookId)
+}
 
 export const newBook = bookData => {
   return axios.post(`/api/books`, bookData);
@@ -51,6 +59,10 @@ export const getAllPostBook = bookID => {
 // 4. Begin Category axios calls:
 export const getAllCategories = () => {
   return axios.get(`/api/category`);
+};
+
+export const getCategoryById = categoryId => {
+  return axios.get(`/api/category`, categoryID);
 };
 
 export const newCategory = categoryData => {
@@ -85,6 +97,10 @@ export const getAllMovies = () => {
   return axios.get(`/api/movies`);
 };
 
+export const getMovieById = movieId => {
+  return axios.get(`/api.movies`);
+}
+
 export const newMovie = movieData => {
   return axios.post(`/api/movies`, movieData);
 };
@@ -112,6 +128,10 @@ export const getAllPostMovie = movieID => {
 export const getAllSongs = () => {
   return axios.get(`/api/songs`);
 };
+
+export const getSongById = songId => {
+  return axios.get(`/api/songs`, songId);
+}
 
 export const newSong = songData => {
   return axios.post(`/api/songs`, songData);
