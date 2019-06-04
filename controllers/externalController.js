@@ -25,7 +25,6 @@ const spotifyThis = (req, res) => {
   spotify
     .request(query)
     .then((trackData) => {
-      res.json(trackData);
 
       const songData = {
         artist: trackData.tracks.items[0].artists[0].name,
@@ -65,7 +64,6 @@ function getGoogleBook(req, res) {
       q: query
     },
   }).then((response) => {
-    res.json(response.data);
 
     const bookData = {
       cover: response.data.items[0].volumeInfo.imageLinks.thumbnail,
@@ -110,7 +108,6 @@ function movieThis(req, res) {
       }
     })
     .then((response) => {
-      res.json(response.data);
 
       const movieData = {
         poster: response.data.Poster,
