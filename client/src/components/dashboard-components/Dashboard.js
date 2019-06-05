@@ -49,7 +49,7 @@ class Dashboard extends Component {
   };
 
   saveAndRender = () => {
-    // POST note to database 
+    // POST note to database and saves all relevant media to the post
     API.newPost({
       title: this.state.title,
       body: this.state.body
@@ -112,6 +112,20 @@ class Dashboard extends Component {
         console.log(err);
       })
   }
+
+  //  start delete a post
+
+  noteDelete = (noteId) => {
+    console.log("delete running!");
+    API.deleteUserPost(noteId)
+    .then(
+      this.getSavedNotes()
+    )
+    .catch(function (err) {
+      console.log(err);
+    })
+  }
+  // end delete a post
 
   handleMovieIDs = (movieID) => {
     let movieIdsCopy = [...this.state.movieIds, movieID]
@@ -198,11 +212,15 @@ class Dashboard extends Component {
             <NotesBar>
               {
                 notes.map(({ id, title, createdAt, body }) => {
+                    console.log(id);
+        
                   return (
                     <NotesCard
+                      id={id}
                       title={title}
                       createdAt={createdAt}
                       body={body}
+                      noteDelete={this.noteDelete}
                       key={id}
                     />
                   )
