@@ -33,7 +33,8 @@ class MovieInput extends Component {
       .then(({data: movieInfo}) => {
 
         this.setState({
-          movieId: movieInfo.id
+          movieId: movieInfo.id,
+          title: "",
         }, () => this.props.handleMovieIDs(this.state.movieId))
       })
       .catch(err => console.log(err));

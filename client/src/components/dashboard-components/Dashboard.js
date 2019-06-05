@@ -56,6 +56,8 @@ class Dashboard extends Component {
     })
       .then(({data: savedNoteData}) => {
         const savedNoteId = savedNoteData.id;
+
+        this.getSavedNotes()
         
         // create array of objects
         // [{SongId: 1, PostId: 2}]
@@ -92,7 +94,19 @@ class Dashboard extends Component {
           .catch(err => {
             console.log(err);
           })
-        
+        this.setState({
+          title: "",
+          body: "",
+          createdAt: "",
+          userId: "",
+          notes: [],
+          movieIds: [],
+          movieResponse: [],
+          songIds: [],
+          songResponse: [],
+          bookIds: [],
+          bookResponse: [],
+        })
       })
       .catch(function (err) {
         console.log(err)
