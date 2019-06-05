@@ -20,12 +20,12 @@ function RegisterForm(props) {
         <label htmlFor="firstName">
           First Name
         </label>
-        <input id="firstName" className="form-control form-control-lg" type="text" placeholder="Jane" onChange={props.handleInputChange} value={props.firstName} name="firstName" />
+        <input id="firstName" className="form-control form-control-lg" type="text" placeholder="" onChange={props.handleInputChange} value={props.firstName} name="firstName" />
 
         <label htmlFor="lastName">
           Last Name
         </label>
-        <input id="lastName" className="form-control form-control-lg" type="text" placeholder="Doe" onChange={props.handleInputChange} value={props.lastName} name="lastName" />
+        <input id="lastName" className="form-control form-control-lg" type="text" placeholder="" onChange={props.handleInputChange} value={props.lastName} name="lastName" />
 
         <label htmlFor="password">
           Password

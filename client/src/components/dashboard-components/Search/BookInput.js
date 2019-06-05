@@ -5,7 +5,8 @@ class BookInput extends Component {
 
   state = {
     title: "",
-    author: ""
+    author: "",
+    bookId: "",
   };
 
   handleInputChange = event => {
@@ -35,7 +36,10 @@ class BookInput extends Component {
 
     getGoogleBook(searchCriteria)
       .then(({data: bookInfo}) => {
-        console.log(bookInfo);
+
+        this.setState({
+          bookId: bookInfo.id
+        }, () => this.props.handleBookIDs(this.state.bookId))
       })
       .catch(err => console.log(err));
   }

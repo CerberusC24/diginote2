@@ -20,7 +20,7 @@ const getAllBooks = async (req, res) => {
 //1a. get back a book by ID
 const getBookById = async (req, res) => {
 
- const bookId = req.body.id
+ const bookId = req.params.id
 
   Book.findAll({
     where: {

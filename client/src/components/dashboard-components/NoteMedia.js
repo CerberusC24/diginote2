@@ -1,10 +1,52 @@
 import React from 'react';
 
-function NoteMedia() {
+// props if coming from movieResponse is {title, poster}
+function NoteMedia(props) {
+
+  console.log(props);
+
+  function mediaFunction(activeTab) {
+    switch (activeTab) {
+      case 'Movie':
+        return (
+          <div className="card">
+            <img src={props.poster}
+              className="card-img-top"
+              alt={props.title} />
+            <div className="card-body">
+              <h5 className="card-title text-center">{props.title}</h5>
+            </div>
+          </div>
+        );
+      case 'Song':
+        return (
+          <div className="card">
+            <img src={props.albumCoverSmall}
+              className="card-img-top"
+              alt={props.title} />
+            <div className="card-body">
+              <h5 className="card-title text-center">{props.title}</h5>
+            </div>
+          </div>
+        );
+      case 'Book':
+        return (
+          <div className="card">
+            <img src={props.cover}
+              className="card-img-top"
+              alt={props.title} />
+            <div className="card-body">
+              <h5 className="card-title text-center">{props.title}</h5>
+            </div>
+          </div>
+        );
+      default:
+        return null;
+    }
+  }
+
   return (
-    <div className="card col-12 col-md-3">
-      <h1>Where media for each note goes</h1>
-    </div>
+    mediaFunction(props.activeTab)
   )
 }
 
