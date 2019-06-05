@@ -4,6 +4,7 @@ import { movieThis } from'../../../utils/API'
 class MovieInput extends Component {
   state = {
     title: "",
+    movieId: "",
   };
 
   handleInputChange = event => {
@@ -28,13 +29,16 @@ class MovieInput extends Component {
       title: this.state.title,
     }
 
-
-
     movieThis(searchCriteria)
       .then(({data: movieInfo}) => {
-        console.log(movieInfo);
+
+        this.setState({
+          movieId: movieInfo.id
+        }, () => this.props.handleMovieIDs(this.state.movieId))
       })
       .catch(err => console.log(err));
+
+
   }
   render () {
     return (

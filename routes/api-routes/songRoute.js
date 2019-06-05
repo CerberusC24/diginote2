@@ -11,8 +11,11 @@ const {
 router
   .route("/")
   .get(withAuth, getAllSongs)
-  .get(withAuth, getSongById)
   .post(withAuth, newSong);
+
+  router
+  .route("/:id")
+  .get(withAuth, getSongById)
 
 // DELETE at /api/song/delete/:id  
 router.route("/:id")

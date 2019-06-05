@@ -4,7 +4,8 @@ import { spotifyThis } from'../../../utils/API'
 class SongInput extends Component {
   state = {
     title: "",
-    artist: ""
+    artist: "",
+    songId: "",
   };
 
   handleInputChange = event => {
@@ -28,12 +29,16 @@ class SongInput extends Component {
 
     spotifyThis(searchCriteria)
       .then(({data: songInfo}) => {
-        console.log(songInfo);
+
+        this.setState({
+          songId: songInfo.id
+        }, () => this.props.handleSongIDs(this.state.songId))
       })
       .catch(err => console.log(err));
   }
 
   render() {
+    console.log(this.props.handleSongIDs)
     return (
       <form onSubmit={this.songSearch} className="d-flex flex-column">
         <label htmlFor="title">

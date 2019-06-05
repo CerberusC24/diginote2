@@ -86,7 +86,6 @@ class Home extends Component {
     }
     login(userInfo)
       .then(({data: token}) => {
-        console.log(token);
         this.setState({
           token: token,
           redirect: true

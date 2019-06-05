@@ -30,7 +30,7 @@ const getAllSongs = async (req, res) => {
 // get back song by id
 const getSongById = async (req, res) => {
 
-  const songId = req.body.id
+  const songId = req.params.id
 
   Song.findAll({
     where: {

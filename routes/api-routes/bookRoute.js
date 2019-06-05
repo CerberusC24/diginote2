@@ -11,8 +11,11 @@ const {
 router
   .route('/')
   .get(withAuth, getAllBooks)
-  .get(withAuth, getBookById)
   .post(withAuth, newBook);
+
+  router
+  .route("/:id")
+  .get(withAuth, getBookById);
 
 // DELETE at /api/book/delete/:id
 router

@@ -16,11 +16,18 @@ class Dashboard extends Component {
   // STATE
   state = {
     currentPage: "Notes",
+    activeTab: "Song",
     title: "",
     body: "",
     createdAt: "",
     userId: "",
-    notes: []
+    notes: [],
+    movieIds: [],
+    movieResponse: [],
+    songIds: [],
+    songResponse: [],
+    bookIds: [],
+    bookResponse: [],
   };
 
   componentDidMount() {
@@ -67,7 +74,74 @@ class Dashboard extends Component {
       .catch(function (err) {
         console.log(err);
       })
+  }
 
+  handleMovieIDs = (movieID) => {
+    let movieIdsCopy = [...this.state.movieIds, movieID]
+
+    this.setState({
+      movieIds: movieIdsCopy
+    },
+      async function handleMovieDisplay() {
+
+        const emptyArray = [];
+
+        for (const movieId of this.state.movieIds) {
+          const movie = await API.getMovieById(movieId);
+          emptyArray.push(movie.data[0]);
+        }
+        this.setState({
+          movieResponse: emptyArray
+        })
+      })
+  }
+
+  handleSongIDs = (songID) => {
+    let songIdsCopy = [...this.state.songIds, songID]
+
+    this.setState({
+      songIds: songIdsCopy
+    },
+      async function handleSongDisplay() {
+
+        const emptyArray = [];
+
+        for (const songId of this.state.songIds) {
+          const song = await API.getSongById(songId);
+          emptyArray.push(song.data[0]);
+        }
+        this.setState({
+          songResponse: emptyArray
+        })
+      })
+  }
+
+  handleBookIDs = (bookID) => {
+    let bookIdsCopy = [...this.state.bookIds, bookID]
+
+    this.setState({
+      bookIds: bookIdsCopy
+    },
+      async function handleBookDisplay() {
+
+        const emptyArray = [];
+
+        for (const bookId of this.state.bookIds) {
+          const book = await API.getBookById(bookId);
+          emptyArray.push(book.data[0]);
+        }
+        this.setState({
+          bookResponse: emptyArray
+        })
+      })
+  }
+
+
+  // update this.state.currentTab (this will be passed into the Search component)
+  handleMediaChange = (tabName) => {
+    this.setState({
+      activeTab: tabName,
+    })
   }
 
 
@@ -99,7 +173,12 @@ class Dashboard extends Component {
               }
             </NotesBar>
             <div className="column col-12 col-md-6">
-              <Search />
+              <Search
+                handleMovieIDs={this.handleMovieIDs}
+                handleSongIDs={this.handleSongIDs}
+                handleBookIDs={this.handleBookIDs}
+                handleMediaChange={this.handleMediaChange}
+              />
               <Notepad
                 handleInputChange={this.handleInputChange}
                 title={this.state.title}
@@ -112,7 +191,53 @@ class Dashboard extends Component {
                 < DeleteNote />
               </div>
             </div>
-            <NoteMedia />
+
+            
+            {/* check status of this.state.current page and render Notemedia with respective array of data (i.e. movie list, song list, book list) */}
+            <div className="col-12 col-md-3">
+            {
+              this.state.activeTab === "Movie" ? (
+                this.state.movieResponse.map(movie => {
+                  return (
+                    <NoteMedia
+                      key={movie.id}
+                      title={movie.title}
+                      poster={movie.poster}
+                      activeTab={this.state.activeTab}
+                    />
+                  )
+                })
+              ) : ("")
+            }
+            {
+              this.state.activeTab === "Book" ? (
+                this.state.bookResponse.map(book => {
+                  return (
+                    <NoteMedia
+                      key={book.id}
+                      title={book.title}
+                      cover={book.cover}
+                      activeTab={this.state.activeTab}
+                    />
+                  )
+                })
+              ) : ("")
+            }
+            {
+              this.state.activeTab === "Song" ? (
+                this.state.songResponse.map(song => {
+                  return (
+                    <NoteMedia
+                      key={song.id}
+                      title={song.title}
+                      albumCoverSmall={song.albumCoverSmall}
+                      activeTab={this.state.activeTab}
+                    />
+                  )
+                })
+              ) : ("")
+            }
+            </div>
           </div>
         </React.Fragment>
       )
@@ -125,10 +250,10 @@ class Dashboard extends Component {
     } else {
       return <h1>You dun goofed. We're calling the cyber police to backtrace you</h1>
     }
-
   }
 
   render() {
+    console.log(this.state.movieResponse)
     return (
       // NAVBAR
       <div>

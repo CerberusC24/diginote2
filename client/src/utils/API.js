@@ -30,7 +30,7 @@ export const getAllBooks = () => {
 };
 
 export const getBookById = bookId => {
-  return axios.get(`/api/books`, bookId)
+  return axios.get(`/api/books/` + bookId)
 }
 
 export const newBook = bookData => {
@@ -62,7 +62,7 @@ export const getAllCategories = () => {
 };
 
 export const getCategoryById = categoryId => {
-  return axios.get(`/api/category`, categoryID);
+  return axios.get(`/api/category`, categoryId);
 };
 
 export const newCategory = categoryData => {
@@ -98,7 +98,7 @@ export const getAllMovies = () => {
 };
 
 export const getMovieById = movieId => {
-  return axios.get(`/api.movies`);
+  return axios.get(`/api/movies/` + movieId);
 }
 
 export const newMovie = movieData => {
@@ -130,7 +130,7 @@ export const getAllSongs = () => {
 };
 
 export const getSongById = songId => {
-  return axios.get(`/api/songs`, songId);
+  return axios.get(`/api/songs/` + songId);
 }
 
 export const newSong = songData => {
@@ -216,6 +216,9 @@ export default {
   getAllSongPost,
   getPostByCategory,
   getUserPost,
+  getSongById,
+  getBookById,
+  getMovieById,
   newPost,
   newBook,
   newCategory,

@@ -27,7 +27,7 @@ const getAllMovies = async (req, res) => {
 // get back all Movies
 const getMovieById = async (req, res) => {
 
-  const movieId = req.body.id
+  const movieId = req.params.id
 
   Movie.findAll({
     where: {

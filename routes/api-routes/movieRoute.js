@@ -11,8 +11,11 @@ const {
 router
   .route("/")
   .get(withAuth, getAllMovies)
-  .get(withAuth, getMovieById)
   .post(withAuth, newMovie);
+
+  router
+  .route("/:id")
+  .get(withAuth, getMovieById);
 
 // DELETE at /api/movie
 router
