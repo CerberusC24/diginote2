@@ -6,8 +6,6 @@ import NoteMedia from './NoteMedia'
 import Search from './Search/Search'
 import Banner from './Banner/Banner'
 import SaveNote from './Buttons/SaveNote'
-import DeleteNote from './Buttons/DeleteNote'
-import EditNote from './Buttons/EditNote'
 import AddNote from './Buttons/AddNote'
 import API from '../../utils/API'
 import NotesCard from './NotesCard'
@@ -108,8 +106,6 @@ class Dashboard extends Component {
               <div className="row justify-content-between mx-3">
                 < AddNote />
                 < SaveNote saveAndRender={this.saveAndRender} />
-                < EditNote />
-                < DeleteNote />
               </div>
             </div>
             <NoteMedia />
