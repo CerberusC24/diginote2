@@ -54,7 +54,46 @@ class Dashboard extends Component {
       title: this.state.title,
       body: this.state.body
     })
-      .then(this.getSavedNotes)
+      .then(({data: savedNoteData}) => {
+        const savedNoteId = savedNoteData.id;
+        
+        // create array of objects
+        // [{SongId: 1, PostId: 2}]
+          const songPostIdArray = this.state.songIds.map(songId => {
+            return {
+              SongId: songId,
+              PostId: savedNoteId
+            }
+          });
+
+        const bookPostIdArray = this.state.bookIds.map(bookId => {
+          return {
+            BookId: bookId,
+            PostId: savedNoteId
+          }
+        });
+
+        const moviePostIdArray = this.state.movieIds.map(movieId => {
+          return {
+            MovieId: movieId,
+            PostId: savedNoteId
+          }
+        });
+
+        console.log(songPostIdArray, bookPostIdArray, moviePostIdArray);
+
+        Promise
+          .all([
+            ...songPostIdArray.map(idObj => API.newSongPost(idObj)), ...bookPostIdArray.map(idObj => API.newBookPost(idObj)), ...moviePostIdArray.map(idObj => API.newMoviePost(idObj))
+          ])
+          .then((data) => {
+            console.log(data);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+        
+      })
       .catch(function (err) {
         console.log(err)
       });
@@ -249,7 +288,6 @@ class Dashboard extends Component {
   }
 
   render() {
-    console.log(this.state.movieResponse)
     return (
       // NAVBAR
       <div>

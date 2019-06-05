@@ -6,7 +6,7 @@ import SongInput from './SongInput'
 
 function Search(props) {
   const [activeTab, setActiveTab] = useState({
-    tab: <SongInput />,
+    tab: <SongInput handleSongIDs={props.handleSongIDs} />,
     name: "Song"
   });  
 
