@@ -146,6 +146,87 @@ class Dashboard extends Component {
   }
   // end delete a post
 
+  // begin edit note
+
+   /* 
+    Set the input states to the title and body of the note
+
+    then we need to do get requests using the through tables, to pull back all of the media attached to the note
+
+    take the information from the tables (3 tables) and create 3 arrays of the movie, song, and book input
+
+    those arrays need to be read through, to render the attached media in the NoteMedia area
+
+    pressing save NOW needs to set a put request (not a post request) 
+
+
+    clear all the state fields 
+   */
+
+   noteEdit = (noteId) => {
+    //  take the note id a send it to state
+
+    const id = noteId;
+
+      API.getUserPostById(id)
+      .then(
+        response => {
+          
+          let bookMapArr = response.data[0].Books.map(bookMap => bookMap)
+
+          console.log(bookMapArr)
+          
+          let bookMap2 = bookMapArr.map(({title, cover}) => {
+            return {title, cover}
+          });
+
+          console.log(bookMap2)
+          
+          let movieMapArr = response.data[0].Movies.map(movieMap => movieMap)
+
+          
+          let movieMap2 = movieMapArr.map(({title, poster}) => {
+            return {title, poster}
+          });
+
+          console.log(movieMap2)
+
+          let songMapArr = response.data[0].Songs.map(songMap => songMap)
+
+          console.log(bookMapArr)
+          
+          let songMap2 = songMapArr.map(({title, albumCoverSmall}) => {
+            return {title, albumCoverSmall}
+          });
+
+          console.log(songMap2)
+
+          this.setState({
+            title: response.data[0].title,
+            body: response.data[0].body,
+            movieResponse: movieMap2,
+            songResponse: songMap2,
+            bookResponse: bookMap2,
+          })
+        } 
+        
+      )
+      .catch(function (err) {
+        console.log(err);
+      })
+      
+
+      this.setState({
+        title: "",
+        body: "",
+        movieResponse: [],
+        songResponse: [],
+        bookResponse: [],
+      })
+
+   }
+  // end edit note
+
   handleMovieIDs = (movieID) => {
     let movieIdsCopy = [...this.state.movieIds, movieID]
 
@@ -272,6 +353,7 @@ class Dashboard extends Component {
                       createdAt={createdAt}
                       body={body}
                       noteDelete={this.noteDelete}
+                      noteEdit={this.noteEdit}
                       key={id}
                     />
                   )

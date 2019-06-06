@@ -8,7 +8,7 @@ export const getUserPost = () => {
 };
 
 export const getUserPostById = postId => {
-  return axios.get(`/api/posts`, postId);
+  return axios.get(`/api/posts/`+ postId);
 }
 
 export const newPost = postData => {
@@ -48,7 +48,7 @@ export const newBookPost = bookPostData => {
 };
 
 export const getAllBookPost = postID => {
-  return axios.get(`/api/bookposts/post/postID`, postID);
+  return axios.get(`/api/bookposts/post/`+ postID);
 };
 
 export const getAllPostBook = bookID => {
@@ -216,6 +216,7 @@ export default {
   getAllSongPost,
   getPostByCategory,
   getUserPost,
+  getUserPostById,
   getSongById,
   getBookById,
   getMovieById,
