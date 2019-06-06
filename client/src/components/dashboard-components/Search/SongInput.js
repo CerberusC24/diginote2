@@ -38,7 +38,6 @@ class SongInput extends Component {
   }
 
   render() {
-    console.log(this.props.handleSongIDs)
     return (
       <form onSubmit={this.songSearch} className="d-flex flex-column">
         <label htmlFor="title">
