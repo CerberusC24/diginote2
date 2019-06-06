@@ -17,7 +17,7 @@ function LoginForm (props) {
     <label htmlFor="password">
       Password
     </label>
-    <input id="password" className="form-control form-control-lg" type="password" placeholder="email@email.com" onChange={props.handleInputChange} value={props.password} name="password"/>
+    <input id="password" className="form-control form-control-lg" type="password" placeholder="Password" onChange={props.handleInputChange} value={props.password} name="password"/>
 
     <input type="submit" className="btn btn-primary" onClick={props.handleOnSubmit} />
 
