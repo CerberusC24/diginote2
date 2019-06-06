@@ -86,7 +86,9 @@ class Dashboard extends Component {
 
         Promise
           .all([
-            ...songPostIdArray.map(idObj => API.newSongPost(idObj)), ...bookPostIdArray.map(idObj => API.newBookPost(idObj)), ...moviePostIdArray.map(idObj => API.newMoviePost(idObj))
+            ...songPostIdArray.map(idObj => API.newSongPost(idObj)), 
+            ...bookPostIdArray.map(idObj => API.newBookPost(idObj)), 
+            ...moviePostIdArray.map(idObj => API.newMoviePost(idObj))
           ])
           .then((data) => {
             console.log(data);
