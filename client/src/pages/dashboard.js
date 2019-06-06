@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Dashboard from '../components/dashboard-components/Dashboard'
 
 
 class userDashboard extends Component {
 
   state = {
-    token: this.props.location.state.token
+    token: "sfef3fqewf"
+  }
+
+  componentDidMount() {
+    console.log(this.props);
+    this.setState({
+      token: this.props.location.state ? this.props.location.state.token : ""
+    })
   }
 
   logoutOnClick = () => {
@@ -14,19 +21,21 @@ class userDashboard extends Component {
       token: ""
     })
 
+
+
+  }
+  render() {
     if (!this.state.token) {
       return <Redirect to="/" />
     }
 
-  }
-  render () {
     return (
 
-      <Dashboard token={this.state.token} logoutOnClick={this.logoutOnClick}/>
-    
+      <Dashboard token={this.state.token} logoutOnClick={this.logoutOnClick} />
+
     )
-    
-}
+
+  }
 
 }
 export default userDashboard;

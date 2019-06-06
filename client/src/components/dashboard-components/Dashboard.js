@@ -9,6 +9,9 @@ import SaveNote from './Buttons/SaveNote'
 import AddNote from './Buttons/AddNote'
 import API from '../../utils/API'
 import NotesCard from './NotesCard'
+import BookMedia from './AllMedia/BookMedia'
+import SongMedia from './AllMedia/SongMedia'
+import MovieMedia from './AllMedia/MovieMedia'
 
 class Dashboard extends Component {
   // STATE
@@ -26,10 +29,12 @@ class Dashboard extends Component {
     songResponse: [],
     bookIds: [],
     bookResponse: [],
+    bookInfo: [],
   };
 
   componentDidMount() {
     this.getSavedNotes();
+    this.pullMedia();
   }
 
   handleInputChange = event => {
@@ -54,19 +59,19 @@ class Dashboard extends Component {
       title: this.state.title,
       body: this.state.body
     })
-      .then(({data: savedNoteData}) => {
+      .then(({ data: savedNoteData }) => {
         const savedNoteId = savedNoteData.id;
 
         this.getSavedNotes()
-        
+
         // create array of objects
         // [{SongId: 1, PostId: 2}]
-          const songPostIdArray = this.state.songIds.map(songId => {
-            return {
-              SongId: songId,
-              PostId: savedNoteId
-            }
-          });
+        const songPostIdArray = this.state.songIds.map(songId => {
+          return {
+            SongId: songId,
+            PostId: savedNoteId
+          }
+        });
 
         const bookPostIdArray = this.state.bookIds.map(bookId => {
           return {
@@ -132,12 +137,12 @@ class Dashboard extends Component {
   noteDelete = (noteId) => {
     console.log("delete running!");
     API.deleteUserPost(noteId)
-    .then(
-      this.getSavedNotes()
-    )
-    .catch(function (err) {
-      console.log(err);
-    })
+      .then(
+        this.getSavedNotes()
+      )
+      .catch(function (err) {
+        console.log(err);
+      })
   }
   // end delete a post
 
@@ -282,7 +287,40 @@ class Dashboard extends Component {
       })
   }
 
+  // pull all media info from DB
+  pullMedia = () => {
+    // Get all books from DB
+    API.getAllBooks()
+      .then((response) => {
+        this.setState({
+          bookInfo: response.data
+        })
+      })
+      .catch(function (err) {
+        console.log(err);
+      })
+    // Get all songs in DB
+    API.getAllSongs()
+      .then((response) => {
+        this.setState({
+          songInfo: response.data
+        })
+      })
+      .catch(function (err) {
+        console.log(err)
+      })
 
+    // Get all movies in DB
+    API.getAllMovies()
+      .then((response) => {
+        this.setState({
+          movieInfo: response.data
+        })
+      })
+      .catch(function (err) {
+        console.log(err)
+      })
+  }
   // update this.state.currentTab (this will be passed into the Search component)
   handleMediaChange = (tabName) => {
     this.setState({
@@ -307,8 +345,7 @@ class Dashboard extends Component {
             <NotesBar>
               {
                 notes.map(({ id, title, createdAt, body }) => {
-                    console.log(id);
-        
+
                   return (
                     <NotesCard
                       id={id}
@@ -341,63 +378,117 @@ class Dashboard extends Component {
               </div>
             </div>
 
-            
+
             {/* check status of this.state.current page and render Notemedia with respective array of data (i.e. movie list, song list, book list) */}
             <div className="col-12 col-md-3">
-            {
-              this.state.activeTab === "Movie" ? (
-                this.state.movieResponse.map(movie => {
-                  return (
-                    <NoteMedia
-                      key={movie.id}
-                      title={movie.title}
-                      poster={movie.poster}
-                      activeTab={this.state.activeTab}
-                    />
-                  )
-                })
-              ) : ("")
-            }
-            {
-              this.state.activeTab === "Book" ? (
-                this.state.bookResponse.map(book => {
-                  return (
-                    <NoteMedia
-                      key={book.id}
-                      title={book.title}
-                      cover={book.cover}
-                      activeTab={this.state.activeTab}
-                    />
-                  )
-                })
-              ) : ("")
-            }
-            {
-              this.state.activeTab === "Song" ? (
-                this.state.songResponse.map(song => {
-                  return (
-                    <NoteMedia
-                      key={song.id}
-                      title={song.title}
-                      albumCoverSmall={song.albumCoverSmall}
-                      activeTab={this.state.activeTab}
-                    />
-                  )
-                })
-              ) : ("")
-            }
+              {
+                this.state.activeTab === "Movie" ? (
+                  this.state.movieResponse.map(movie => {
+                    return (
+                      <NoteMedia
+                        key={movie.id}
+                        title={movie.title}
+                        poster={movie.poster}
+                        activeTab={this.state.activeTab}
+                      />
+                    )
+                  })
+                ) : ("")
+              }
+              {
+                this.state.activeTab === "Book" ? (
+                  this.state.bookResponse.map(book => {
+                    return (
+                      <NoteMedia
+                        key={book.id}
+                        title={book.title}
+                        cover={book.cover}
+                        activeTab={this.state.activeTab}
+                      />
+                    )
+                  })
+                ) : ("")
+              }
+              {
+                this.state.activeTab === "Song" ? (
+                  this.state.songResponse.map(song => {
+                    return (
+                      <NoteMedia
+                        key={song.id}
+                        title={song.title}
+                        albumCoverSmall={song.albumCoverSmall}
+                        activeTab={this.state.activeTab}
+                      />
+                    )
+                  })
+                ) : ("")
+              }
             </div>
           </div>
         </React.Fragment>
       )
     }
-    // RETURNS MEDIA PAGE (Under Construction)
+    // RETURNS MEDIA PAGE
     if (this.state.currentPage === "Media") {
+      const { bookInfo } = this.state;
+      const { songInfo } = this.state;
+      const { movieInfo } = this.state;
+
+      const songComponent = songInfo.map(({ id, albumCoverLarge, title, artist }) => {
+        return (
+          <SongMedia
+            id={id}
+            albumCoverLarge={albumCoverLarge}
+            title={title}
+            artist={artist}
+            key={id}
+          />
+        )
+      })
+      const bookComponent = bookInfo.map(({ id, cover, title, author }) => {
+
+        return (
+          <BookMedia id={id}
+            title={title}
+            cover={cover}
+            author={author}
+            key={id} />
+        )
+      })
+      const movieComponent = movieInfo.map(({ id, poster, title }) => {
+
+        return (
+          <MovieMedia id={id}
+            title={title}
+            poster={poster}
+            key={id} />
+        )
+      })
       return (
-        <h1>Media</h1>
+        <React.Fragment>
+          <div className="card-group">
+            <div className="card-header">
+              Songs
+            </div>
+            {songComponent}
+          </div>
+          <div className="card-group">
+            <div className="card-header">
+              Books
+            </div>
+            {bookComponent}
+          </div>
+          <div className="card-group">
+            <div className="card-header">
+              Movies
+            </div>
+            {movieComponent}
+          </div>
+        </React.Fragment>
       )
+
     } else {
-      return <h1>You dun goofed. We're calling the cyber police to backtrace you</h1>
+      return <h1>Error</h1>
     }
   }
 
