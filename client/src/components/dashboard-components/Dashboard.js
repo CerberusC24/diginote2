@@ -49,12 +49,65 @@ class Dashboard extends Component {
   };
 
   saveAndRender = () => {
-    // POST note to database 
+    // POST note to database and saves all relevant media to the post
     API.newPost({
       title: this.state.title,
       body: this.state.body
     })
-      .then(this.getSavedNotes)
+      .then(({data: savedNoteData}) => {
+        const savedNoteId = savedNoteData.id;
+
+        this.getSavedNotes()
+        
+        // create array of objects
+        // [{SongId: 1, PostId: 2}]
+          const songPostIdArray = this.state.songIds.map(songId => {
+            return {
+              SongId: songId,
+              PostId: savedNoteId
+            }
+          });
+
+        const bookPostIdArray = this.state.bookIds.map(bookId => {
+          return {
+            BookId: bookId,
+            PostId: savedNoteId
+          }
+        });
+
+        const moviePostIdArray = this.state.movieIds.map(movieId => {
+          return {
+            MovieId: movieId,
+            PostId: savedNoteId
+          }
+        });
+
+        console.log(songPostIdArray, bookPostIdArray, moviePostIdArray);
+
+        Promise
+          .all([
+            ...songPostIdArray.map(idObj => API.newSongPost(idObj)), ...bookPostIdArray.map(idObj => API.newBookPost(idObj)), ...moviePostIdArray.map(idObj => API.newMoviePost(idObj))
+          ])
+          .then((data) => {
+            console.log(data);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+        this.setState({
+          title: "",
+          body: "",
+          createdAt: "",
+          userId: "",
+          notes: [],
+          movieIds: [],
+          movieResponse: [],
+          songIds: [],
+          songResponse: [],
+          bookIds: [],
+          bookResponse: [],
+        })
+      })
       .catch(function (err) {
         console.log(err)
       });
@@ -73,6 +126,20 @@ class Dashboard extends Component {
         console.log(err);
       })
   }
+
+  //  start delete a post
+
+  noteDelete = (noteId) => {
+    console.log("delete running!");
+    API.deleteUserPost(noteId)
+    .then(
+      this.getSavedNotes()
+    )
+    .catch(function (err) {
+      console.log(err);
+    })
+  }
+  // end delete a post
 
   handleMovieIDs = (movieID) => {
     let movieIdsCopy = [...this.state.movieIds, movieID]
@@ -159,11 +226,15 @@ class Dashboard extends Component {
             <NotesBar>
               {
                 notes.map(({ id, title, createdAt, body }) => {
+                    console.log(id);
+        
                   return (
                     <NotesCard
+                      id={id}
                       title={title}
                       createdAt={createdAt}
                       body={body}
+                      noteDelete={this.noteDelete}
                       key={id}
                     />
                   )
@@ -249,7 +320,6 @@ class Dashboard extends Component {
   }
 
   render() {
-    console.log(this.state.movieResponse)
     return (
       // NAVBAR
       <div>

@@ -31,26 +31,27 @@ class SongInput extends Component {
       .then(({data: songInfo}) => {
 
         this.setState({
-          songId: songInfo.id
+          songId: songInfo.id,
+          title: "",
+          artist: "",
         }, () => this.props.handleSongIDs(this.state.songId))
       })
       .catch(err => console.log(err));
   }
 
   render() {
-    console.log(this.props.handleSongIDs)
     return (
       <form onSubmit={this.songSearch} className="d-flex flex-column">
         <label htmlFor="title">
           Song Title
         </label>
-        <input id="title" type="text" placeholder="Song Title" onChange={this.handleInputChange} name="title" />
+        <input id="title" type="text" value={this.state.title}placeholder="Song Title" onChange={this.handleInputChange} name="title" />
 
 
         <label htmlFor="artist">
           Artist Name
         </label>
-        <input id="artist" type="text" placeholder="Artist" onChange={this.handleInputChange} name="artist"/>
+        <input id="artist" type="text" value={this.state.artist} placeholder="Artist" onChange={this.handleInputChange} name="artist"/>
 
         <input type="submit" className="btn btn-info btn-sm" value="Add Song"
         />
