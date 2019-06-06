@@ -7,8 +7,9 @@ import EditNote from './Buttons/EditNote'
 function NotesCard(props) {
 
   return (
+
     <div className="list-group-item">
-      <div>
+      <div className="card-body">
         <h5 className="card-title">
           {props.title}
         </h5>
@@ -20,12 +21,13 @@ function NotesCard(props) {
         </p>
       </div>
       <div className="row justify-content-end">
-        <EditNote />
+        <EditNote noteEdit={props.noteEdit} id={props.id}/>
         <DeleteNote
           id={props.id}
          noteDelete={props.noteDelete}/>
       </div>
     </div>
+
   )
 }
 
