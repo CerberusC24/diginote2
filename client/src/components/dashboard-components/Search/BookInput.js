@@ -38,10 +38,16 @@ class BookInput extends Component {
       .then(({data: bookInfo}) => {
 
         this.setState({
-          bookId: bookInfo.id
-        }, () => this.props.handleBookIDs(this.state.bookId))
+          bookId: bookInfo.id,
+          author: "",
+          title: ""
+        }, () => {
+          this.props.handleBookIDs(this.state.bookId)
+        })
+       
       })
       .catch(err => console.log(err));
+     
   }
 
   render () {
@@ -50,12 +56,16 @@ class BookInput extends Component {
         <label htmlFor="title">
           Book Title
         </label>
-        <input type="text" placeholder="Book Title" onChange={this.handleInputChange} name="title" id="title" />
+        <input
+        value={this.state.title}
+        type="text" placeholder="Book Title" onChange={this.handleInputChange} name="title" id="title" />
 
         <label htmlFor="author">
           Book Author
         </label>
-        <input type="text" placeholder="Book Author" onChange={this.handleInputChange} name="author" id="author" />
+        <input
+        value={this.state.author}
+        type="text" placeholder="Book Author" onChange={this.handleInputChange} name="author" id="author" />
 
         <input type="submit" className="btn btn-info btn-sm" value="Add Book" />
       </form>
