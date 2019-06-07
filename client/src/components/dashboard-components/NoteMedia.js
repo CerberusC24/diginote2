@@ -7,7 +7,7 @@ function NoteMedia(props) {
     switch (activeTab) {
       case 'Movie':
         return (
-          <div className="card">
+          <div className="card text-center">
             <img src={props.poster}
               className="card-img-top mx-auto mt-2"
               alt={props.title} />
@@ -23,9 +23,9 @@ function NoteMedia(props) {
         );
       case 'Song':
         return (
-          <div className="card">
-            <img src={props.albumCoverLarge}
-              className="card-img-top mx-auto mt-2"
+          <div className="card text-center">
+            <img src={props.albumCoverSmall}
+              className="card-img-top"
               alt={props.title} />
             <div className="card-body">
               <h5 className="card-title text-center">{props.title}
@@ -39,7 +39,7 @@ function NoteMedia(props) {
         );
       case 'Book':
         return (
-          <div className="card">
+          <div className="card text-center">
             <img src={props.cover}
               className="card-img-top mx-auto mt-2"
               alt={props.title} />

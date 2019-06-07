@@ -3,8 +3,8 @@ import React from 'react';
 function Notepad(props) {
 
   return (
-
-    <form className="col-12 col-md mt-5" >
+    <form className="col-12 col-md" >
+      <h1 className="display-4">Your Notepad</h1>
       <div className="form-group">
         <input
           name="title"

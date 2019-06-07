@@ -13,6 +13,7 @@ import NotesCard from './NotesCard'
 import BookMedia from './AllMedia/BookMedia'
 import SongMedia from './AllMedia/SongMedia'
 import MovieMedia from './AllMedia/MovieMedia'
+import './AllMedia/style.css'
 
 class Dashboard extends Component {
   // STATE
@@ -355,37 +356,48 @@ class Dashboard extends Component {
 
   // pull all media info from DB
   pullMedia = () => {
-    // Get all books from DB
-    API.getAllBooks()
-      .then((response) => {
-        this.setState({
-          bookInfo: response.data
-        })
-      })
-      .catch(function (err) {
-        console.log(err);
-      })
-    // Get all songs in DB
-    API.getAllSongs()
-      .then((response) => {
-        this.setState({
-          songInfo: response.data
-        })
-      })
-      .catch(function (err) {
-        console.log(err)
-      })
 
-    // Get all movies in DB
-    API.getAllMovies()
-      .then((response) => {
-        this.setState({
-          movieInfo: response.data
+    API.getUserPost()
+    .then(
+      userPostResponse => {
+        
+        
+        const books = [];
+        userPostResponse.data.forEach(note => {
+          note.Books.forEach(book => {
+            books.push(book);
+          })
         })
-      })
-      .catch(function (err) {
-        console.log(err)
-      })
+        
+        console.log(books);
+
+        const songs = [];
+        userPostResponse.data.forEach(note => {
+          note.Songs.forEach(song => {
+            songs.push(song);
+          })
+        })
+        
+        const movies = [];
+        userPostResponse.data.forEach(note => {
+          note.Movies.forEach(movie => {
+            movies.push(movie);
+          })
+        })
+        
+        this.setState({
+          songInfo: songs,
+          movieInfo: movies,
+          bookInfo: books
+        })
+        // ~~~
+      }
+    )
+    .catch(function (err) {
+      console.log(err)
+    })
+    
+      
   }
   // update this.state.currentTab (this will be passed into the Search component)
   handleMediaChange = (tabName) => {
@@ -427,12 +439,6 @@ class Dashboard extends Component {
               }
             </NotesBar>
             <div className="column col-12 col-md-6">
-              <Search
-                handleMovieIDs={this.handleMovieIDs}
-                handleSongIDs={this.handleSongIDs}
-                handleBookIDs={this.handleBookIDs}
-                handleMediaChange={this.handleMediaChange}
-              />
               <Notepad
                 id={this.state.noteId}
                 handleInputChange={this.handleInputChange}
@@ -455,6 +461,15 @@ class Dashboard extends Component {
 
             {/* check status of this.state.current page and render Notemedia with respective array of data (i.e. movie list, song list, book list) */}
             <div className="col-12 col-md-3">
+              <h1 className="display-4">
+                Search
+              </h1>
+              <Search
+                handleMovieIDs={this.handleMovieIDs}
+                handleSongIDs={this.handleSongIDs}
+                handleBookIDs={this.handleBookIDs}
+                handleMediaChange={this.handleMediaChange}
+              />
               {
                 this.state.activeTab === "Movie" ? (
                   this.state.movieResponse.map(movie => {
@@ -509,11 +524,14 @@ class Dashboard extends Component {
       )
     }
     // RETURNS MEDIA PAGE
+
     if (this.state.currentPage === "Media") {
+          //  ~~~~
+
       const { bookInfo } = this.state;
       const { songInfo } = this.state;
       const { movieInfo } = this.state;
-
+      
       const songComponent = songInfo.map(({ id, albumCoverLarge, title, artist }) => {
         return (
           <SongMedia
@@ -550,23 +568,28 @@ class Dashboard extends Component {
             <div className="card-header">
               Songs
             </div>
-            {songComponent}
+            <div className="carousel">
+              {songComponent}
+            </div>
           </div>
           <div className="card-group">
             <div className="card-header">
               Books
             </div>
-            {bookComponent}
+            <div className="carousel">
+              {bookComponent}
+            </div>
           </div>
           <div className="card-group">
             <div className="card-header">
               Movies
             </div>
-            {movieComponent}
+            <div className="carousel">
+              {movieComponent}
+            </div>
           </div>
         </React.Fragment>
       )
-
     } else {
       return <h1>Error</h1>
     }
