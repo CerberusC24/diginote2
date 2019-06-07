@@ -165,7 +165,7 @@ class Dashboard extends Component {
 
    noteEdit = (noteId) => {
     //  take the note id a send it to state
-
+    // 
     const id = noteId;
 
       API.getUserPostById(id)
@@ -289,37 +289,48 @@ class Dashboard extends Component {
 
   // pull all media info from DB
   pullMedia = () => {
-    // Get all books from DB
-    API.getAllBooks()
-      .then((response) => {
-        this.setState({
-          bookInfo: response.data
-        })
-      })
-      .catch(function (err) {
-        console.log(err);
-      })
-    // Get all songs in DB
-    API.getAllSongs()
-      .then((response) => {
-        this.setState({
-          songInfo: response.data
-        })
-      })
-      .catch(function (err) {
-        console.log(err)
-      })
 
-    // Get all movies in DB
-    API.getAllMovies()
-      .then((response) => {
-        this.setState({
-          movieInfo: response.data
+    API.getUserPost()
+    .then(
+      userPostResponse => {
+        
+        
+        const books = [];
+        userPostResponse.data.forEach(note => {
+          note.Books.forEach(book => {
+            books.push(book);
+          })
         })
-      })
-      .catch(function (err) {
-        console.log(err)
-      })
+        
+        console.log(books);
+
+        const songs = [];
+        userPostResponse.data.forEach(note => {
+          note.Songs.forEach(song => {
+            songs.push(song);
+          })
+        })
+        
+        const movies = [];
+        userPostResponse.data.forEach(note => {
+          note.Movies.forEach(movie => {
+            movies.push(movie);
+          })
+        })
+        
+        this.setState({
+          songInfo: songs,
+          movieInfo: movies,
+          bookInfo: books
+        })
+        // ~~~
+      }
+    )
+    .catch(function (err) {
+      console.log(err)
+    })
+    
+      
   }
   // update this.state.currentTab (this will be passed into the Search component)
   handleMediaChange = (tabName) => {
@@ -429,11 +440,14 @@ class Dashboard extends Component {
       )
     }
     // RETURNS MEDIA PAGE
+
     if (this.state.currentPage === "Media") {
+          //  ~~~~
+
       const { bookInfo } = this.state;
       const { songInfo } = this.state;
       const { movieInfo } = this.state;
-
+      
       const songComponent = songInfo.map(({ id, albumCoverLarge, title, artist }) => {
         return (
           <SongMedia
@@ -486,7 +500,6 @@ class Dashboard extends Component {
           </div>
         </React.Fragment>
       )
-
     } else {
       return <h1>Error</h1>
     }
