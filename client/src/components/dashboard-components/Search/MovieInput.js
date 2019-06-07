@@ -49,7 +49,7 @@ class MovieInput extends Component {
         </label>
         <input type="text" placeholder="Movie Title" id="title" name="title" value={this.state.title} onChange={this.handleInputChange}/>
         
-        <input type="submit" className="btn btn-info btn-sm" value="Add Movie" />
+        <input type="submit" className="btn btn-info btn-sm mt-4" value="Add Movie" />
       </form>
     )
   }

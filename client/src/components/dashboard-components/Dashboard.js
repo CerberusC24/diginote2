@@ -13,6 +13,7 @@ import NotesCard from './NotesCard'
 import BookMedia from './AllMedia/BookMedia'
 import SongMedia from './AllMedia/SongMedia'
 import MovieMedia from './AllMedia/MovieMedia'
+import './AllMedia/style.css'
 
 class Dashboard extends Component {
   // STATE
@@ -427,12 +428,6 @@ class Dashboard extends Component {
               }
             </NotesBar>
             <div className="column col-12 col-md-6">
-              <Search
-                handleMovieIDs={this.handleMovieIDs}
-                handleSongIDs={this.handleSongIDs}
-                handleBookIDs={this.handleBookIDs}
-                handleMediaChange={this.handleMediaChange}
-              />
               <Notepad
                 id={this.state.noteId}
                 handleInputChange={this.handleInputChange}
@@ -455,6 +450,15 @@ class Dashboard extends Component {
 
             {/* check status of this.state.current page and render Notemedia with respective array of data (i.e. movie list, song list, book list) */}
             <div className="col-12 col-md-3">
+              <h1 className="display-4">
+                Search
+              </h1>
+              <Search
+                handleMovieIDs={this.handleMovieIDs}
+                handleSongIDs={this.handleSongIDs}
+                handleBookIDs={this.handleBookIDs}
+                handleMediaChange={this.handleMediaChange}
+              />
               {
                 this.state.activeTab === "Movie" ? (
                   this.state.movieResponse.map(movie => {
@@ -550,19 +554,25 @@ class Dashboard extends Component {
             <div className="card-header">
               Songs
             </div>
-            {songComponent}
+            <div className="carousel">
+              {songComponent}
+            </div>
           </div>
           <div className="card-group">
             <div className="card-header">
               Books
             </div>
-            {bookComponent}
+            <div className="carousel">
+              {bookComponent}
+            </div>
           </div>
           <div className="card-group">
             <div className="card-header">
               Movies
             </div>
-            {movieComponent}
+            <div className="carousel">
+              {movieComponent}
+            </div>
           </div>
         </React.Fragment>
       )
