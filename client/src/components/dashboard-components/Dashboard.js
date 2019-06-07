@@ -30,7 +30,7 @@ class Dashboard extends Component {
     songResponse: [],
     bookIds: [],
     bookResponse: [],
-    bookInfo: [],
+    bookInfo: []
   };
 
   componentDidMount() {
