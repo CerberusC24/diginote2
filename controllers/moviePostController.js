@@ -62,6 +62,7 @@ const updateMoviePost = (req, res) => {
 
 // delete a MoviePost
 const deleteMoviePost = (req, res) => {
+  console.log(req.params);
   MoviePost.destroy({
     where: {
       PostId: req.params.postid,

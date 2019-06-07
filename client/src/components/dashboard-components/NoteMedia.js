@@ -2,7 +2,7 @@ import React from 'react';
 
 // props if coming from movieResponse is {title, poster}
 function NoteMedia(props) {
-
+  console.log(props);
   function mediaFunction(activeTab) {
     switch (activeTab) {
       case 'Movie':

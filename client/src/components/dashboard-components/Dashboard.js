@@ -75,6 +75,7 @@ class Dashboard extends Component {
   }
 
   handleDeleteMedia = (id) => {
+    console.log(id)
 
     if (this.state.activeTab === "Song") {
 
@@ -97,7 +98,6 @@ class Dashboard extends Component {
     else if (this.state.activeTab === "Movie") {
 
       const newMovieIds = this.state.movieIds.filter(movieId => id !== movieId)
-
       const newMovieData = this.state.movieResponse.filter(movie => id !== movie.id);
 
       API.deleteMoviePost(id, this.state.noteId)
@@ -116,7 +116,6 @@ class Dashboard extends Component {
     else if (this.state.activeTab === "Book") {
 
       const newBookIds = this.state.bookIds.filter(bookId => id !== bookId)
-
       const newBookData = this.state.bookResponse.filter(book => id !== book.id);
 
       API.deleteBookPost(id, this.state.noteId)
@@ -251,20 +250,20 @@ class Dashboard extends Component {
 
           let bookMapArr = response.data[0].Books.map(bookMap => bookMap)
 
-          let bookMap2 = bookMapArr.map(({ title, cover }) => {
-            return { title, cover }
+          let bookMap2 = bookMapArr.map(({ title, cover, id }) => {
+            return { title, cover, id }
           });
 
           let movieMapArr = response.data[0].Movies.map(movieMap => movieMap)
 
-          let movieMap2 = movieMapArr.map(({ title, poster }) => {
-            return { title, poster }
+          let movieMap2 = movieMapArr.map(({ title, poster, id }) => {
+            return { title, poster , id}
           });
 
           let songMapArr = response.data[0].Songs.map(songMap => songMap)
 
-          let songMap2 = songMapArr.map(({ title, albumCoverLarge }) => {
-            return { title, albumCoverLarge }
+          let songMap2 = songMapArr.map(({ title, albumCoverLarge, id }) => {
+            return { title, albumCoverLarge, id }
           });
 
           this.setState({
@@ -368,8 +367,6 @@ class Dashboard extends Component {
             books.push(book);
           })
         })
-        
-        console.log(books);
 
         const songs = [];
         userPostResponse.data.forEach(note => {
