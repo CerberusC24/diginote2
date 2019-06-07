@@ -67,7 +67,7 @@ const updateBookPost = (req, res) => {
 const deleteBookPost = (req, res) => {
   BookPost.destroy({
     where: {
-      PostId: req.params.postid
+      PostId: req.params.bookid
     }
   })
     .then(dbBookPostData => res.json(dbSongPostData))

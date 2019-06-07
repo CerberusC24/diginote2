@@ -14,12 +14,15 @@ router
   
   router
   .route("/book/:bookid")
-  .get(withAuth, getAllPostBook);
+  .get(withAuth, getAllPostBook)
 
 router
   .route("/:postid")
   .get(withAuth, getAllBookPost)
   .put(withAuth, updateBookPost)
+
+  router
+  .route("/:bookid")
   .delete(withAuth, deleteBookPost)
   
 

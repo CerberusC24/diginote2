@@ -20,6 +20,9 @@ router
   .route("/:postid")
   .get(withAuth, getAllSongPost)
   .put(withAuth, updateSongPost)
+
+  router
+  .route("/:songid")
   .delete(withAuth, deleteSongPost)
 
 module.exports = router;

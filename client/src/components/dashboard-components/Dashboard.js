@@ -80,7 +80,7 @@ class Dashboard extends Component {
       const newSongIds = this.state.songIds.filter(songId => id !== songId)
       const newSongData = this.state.songResponse.filter(song => id !== song.id);
 
-      API.deleteSongPost(this.state.noteId)
+      API.deleteSongPost(id)
       .then((response) => {
         console.log(response);
       })
@@ -99,7 +99,7 @@ class Dashboard extends Component {
 
       const newMovieData = this.state.movieResponse.filter(movie => id !== movie.id);
 
-      API.deleteMoviePost(this.state.noteId)
+      API.deleteMoviePost(id)
       .then((response) => {
         console.log(response);
       })
@@ -118,7 +118,7 @@ class Dashboard extends Component {
 
       const newBookData = this.state.bookResponse.filter(book => id !== book.id);
 
-      API.deleteBookPost(this.state.noteId)
+      API.deleteBookPost(id)
       .then((response) => {
         console.log(response);
       })
