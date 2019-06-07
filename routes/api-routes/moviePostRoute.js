@@ -21,7 +21,7 @@ router
   .put(withAuth, updateMoviePost)
 
   router
-  .route("/:movieid")
+  .route("/:movieid/:postid")
   .delete(withAuth, deleteMoviePost)
 
 

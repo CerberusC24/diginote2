@@ -22,7 +22,7 @@ router
   .put(withAuth, updateSongPost)
 
   router
-  .route("/:songid")
+  .route("/:songid/:postid")
   .delete(withAuth, deleteSongPost)
 
 module.exports = router;

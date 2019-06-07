@@ -22,7 +22,7 @@ router
   .put(withAuth, updateBookPost)
 
   router
-  .route("/:bookid")
+  .route("/:bookid/:postid")
   .delete(withAuth, deleteBookPost)
   
 
