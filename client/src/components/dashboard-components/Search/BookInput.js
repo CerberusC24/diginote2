@@ -67,7 +67,7 @@ class BookInput extends Component {
         value={this.state.author}
         type="text" placeholder="Book Author" onChange={this.handleInputChange} name="author" id="author" />
 
-        <input type="submit" className="btn btn-info btn-sm" value="Add Book" />
+        <input type="submit" className="btn btn-info btn-sm mt-4" value="Add Book" />
       </form>
     )
   }

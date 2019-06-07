@@ -53,7 +53,7 @@ class SongInput extends Component {
         </label>
         <input id="artist" type="text" value={this.state.artist} placeholder="Artist" onChange={this.handleInputChange} name="artist"/>
 
-        <input type="submit" className="btn btn-info btn-sm" value="Add Song"
+        <input type="submit" className="btn btn-info btn-sm mt-4" value="Add Song"
         />
       </form>
     )

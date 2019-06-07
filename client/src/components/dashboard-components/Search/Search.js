@@ -41,7 +41,7 @@ function Search(props) {
 
         </div>
       </nav>
-      <div className="mt-4 text-center">
+      <div className="mt-4 mb-4 text-center">
           {activeTab.tab}
         </div>
 

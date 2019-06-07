@@ -2,7 +2,7 @@ import React from 'react';
 
 function NavbarTabs(props) {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light row">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark row">
       <div className="navbar-brand">Welcome, {props.firstName}</div>
       <button className="btn btn-danger" onClick={props.logoutOnClick}>Log Out</button>
       <ul className="nav nav-pills ml-auto">
