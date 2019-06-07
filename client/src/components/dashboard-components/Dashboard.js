@@ -82,12 +82,12 @@ class Dashboard extends Component {
       const newSongData = this.state.songResponse.filter(song => id !== song.id);
 
       API.deleteSongPost(this.state.noteId)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch(function (err) {
-        console.log(err);
-      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch(function (err) {
+          console.log(err);
+        })
 
       this.setState({
         songIds: newSongIds,
@@ -101,12 +101,12 @@ class Dashboard extends Component {
       const newMovieData = this.state.movieResponse.filter(movie => id !== movie.id);
 
       API.deleteMoviePost(this.state.noteId)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch(function (err) {
-        console.log(err);
-      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch(function (err) {
+          console.log(err);
+        })
 
       this.setState({
         movieIds: newMovieIds,
@@ -120,12 +120,12 @@ class Dashboard extends Component {
       const newBookData = this.state.bookResponse.filter(book => id !== book.id);
 
       API.deleteBookPost(this.state.noteId)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch(function (err) {
-        console.log(err);
-      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch(function (err) {
+          console.log(err);
+        })
 
       this.setState({
         bookIds: newBookIds,
@@ -358,46 +358,44 @@ class Dashboard extends Component {
   pullMedia = () => {
 
     API.getUserPost()
-    .then(
-      userPostResponse => {
-        
-        
-        const books = [];
-        userPostResponse.data.forEach(note => {
-          note.Books.forEach(book => {
-            books.push(book);
-          })
-        })
-        
-        console.log(books);
+      .then(
+        userPostResponse => {
 
-        const songs = [];
-        userPostResponse.data.forEach(note => {
-          note.Songs.forEach(song => {
-            songs.push(song);
+
+          const books = [];
+          userPostResponse.data.forEach(note => {
+            note.Books.forEach(book => {
+              books.push(book);
+            })
           })
-        })
-        
-        const movies = [];
-        userPostResponse.data.forEach(note => {
-          note.Movies.forEach(movie => {
-            movies.push(movie);
+
+          const songs = [];
+          userPostResponse.data.forEach(note => {
+            note.Songs.forEach(song => {
+              songs.push(song);
+            })
           })
-        })
-        
-        this.setState({
-          songInfo: songs,
-          movieInfo: movies,
-          bookInfo: books
-        })
-        // ~~~
-      }
-    )
-    .catch(function (err) {
-      console.log(err)
-    })
-    
-      
+
+          const movies = [];
+          userPostResponse.data.forEach(note => {
+            note.Movies.forEach(movie => {
+              movies.push(movie);
+            })
+          })
+
+          this.setState({
+            songInfo: songs,
+            movieInfo: movies,
+            bookInfo: books
+          })
+          // ~~~
+        }
+      )
+      .catch(function (err) {
+        console.log(err)
+      })
+
+
   }
   // update this.state.currentTab (this will be passed into the Search component)
   handleMediaChange = (tabName) => {
@@ -526,12 +524,12 @@ class Dashboard extends Component {
     // RETURNS MEDIA PAGE
 
     if (this.state.currentPage === "Media") {
-          //  ~~~~
-
+      //  ~~~~
       const { bookInfo } = this.state;
       const { songInfo } = this.state;
       const { movieInfo } = this.state;
-      
+      console.log(bookInfo);
+
       const songComponent = songInfo.map(({ id, albumCoverLarge, title, artist }) => {
         return (
           <SongMedia
