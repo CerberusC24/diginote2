@@ -240,21 +240,9 @@ class Dashboard extends Component {
    clear all the state fields 
   */
 
-<<<<<<< HEAD
-    pressing save NOW needs to set a put request (not a post request) 
-
-
-    clear all the state fields 
-   */
-
-   noteEdit = (noteId) => {
-    //  take the note id a send it to state
-    // 
-=======
   noteEdit = (noteId) => {
     //  take the note id and send it to state
 
->>>>>>> 7616757def836451211ccb59088ac7e9811489bd
     const id = noteId;
 
     API.getUserPostById(id)
