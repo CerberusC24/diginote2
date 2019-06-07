@@ -79,8 +79,14 @@ const updateUserPost = async (req, res) => {
         id: req.params.id
       }
     })
-    .then(dbPostData => res.json(dbPostData))
-    .catch(err => res.json(err));
+    .then(dbPostData => {
+      console.log(dbPostData);
+      res.json(dbPostData)
+    })
+    .catch(err => {
+      console.log(err);
+      res.json(err)
+    });
 }
 
 // exporting

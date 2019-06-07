@@ -41,9 +41,43 @@ const getAllPostMovie = async(req, res) => {
   .catch(err => res.json(err));
 }
 
+// update a MoviePost
+const updateMoviePost = (req, res) => {
+  const {
+    MovieId, PostId
+  } = req.body;
+  MoviePost.update({
+    MovieId, PostId,
+  }, {
+    where: {
+      id: req.params.postid
+    }
+  })
+    .then(dbBookPostData => res.json(dbMoviePostData))
+    .catch(err => {
+      console.log(err);
+      res.json(err);
+    });
+}
+
+// delete a MoviePost
+const deleteMoviePost = (req, res) => {
+  MoviePost.destroy({
+    where: {
+      PostId: req.params.postid
+    }
+  })
+    .then(dbBookPostData => res.json(dbSongPostData))
+    .catch(err => {
+      console.log(err);
+      res.json(err);
+    });
+}
+
 module.exports = {
   newMoviePost,
   getAllMoviePost,
   getAllPostMovie,
-
+  updateMoviePost,
+  deleteMoviePost
 };

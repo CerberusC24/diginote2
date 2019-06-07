@@ -21,7 +21,9 @@ function NotesCard(props) {
         </p>
       </div>
       <div className="row justify-content-end">
-        <EditNote noteEdit={props.noteEdit} id={props.id}/>
+        <EditNote 
+        noteEdit={props.noteEdit} 
+        id={props.id}/>
         <DeleteNote
           id={props.id}
          noteDelete={props.noteDelete}/>
