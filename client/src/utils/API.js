@@ -37,8 +37,8 @@ export const newBook = bookData => {
   return axios.post(`/api/books`, bookData);
 };
 
-export const deletePostBook = bookID => {
-  return axios.delete(`/api/books/delete/${bookID}`);
+export const deletePostBook = (bookID, noteID) => {
+  return axios.delete(`/api/books/delete/${bookID}/${noteID}`);
 };
 // End Book axios calls
 
@@ -59,8 +59,8 @@ export const getAllPostBook = bookID => {
   return axios.get(`/api/bookposts/book/${bookID}`);
 };
 
-export const deleteBookPost = postID => {
-  return axios.delete(`/api/bookposts/` + postID)
+export const deleteBookPost = (bookID, postID) => {
+  return axios.delete(`/api/bookposts/${bookID}/${postID}`)
 }
 // End Book-Post axios calls
 
@@ -135,8 +135,8 @@ export const updateMoviePost = moviePostData => {
   return axios.put(`/api/movieposts`, moviePostData)
 }
 
-export const deleteMoviePost = postID => {
-  return axios.delete(`/api/movieposts/` + postID)
+export const deleteMoviePost = (movieID, postID) => {
+  return axios.delete(`/api/movieposts/${movieID}/${postID}`)
 }
 // End Movie-Post axios calls
 
@@ -175,8 +175,8 @@ export const updateSongPost = songPostData => {
   return axios.put(`/api/songposts`, songPostData)
 }
 
-export const deleteSongPost = postID => {
-  return axios.delete(`/api/songposts/` + postID)
+export const deleteSongPost = songID => {
+  return axios.delete(`/api/songposts/` + songID)
 }
 // End song-post axios calls
 
