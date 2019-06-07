@@ -8,7 +8,7 @@ export const getUserPost = () => {
 };
 
 export const getUserPostById = postId => {
-  return axios.get(`/api/posts`, postId);
+  return axios.get(`/api/posts/`+ postId);
 }
 
 export const newPost = postData => {
@@ -19,8 +19,8 @@ export const deleteUserPost = postID => {
   return axios.delete(`/api/posts/${postID}`);
 };
 
-export const updateUserPost = postID => {
-  return axios.put(`/api/posts/${postID}`);
+export const updateUserPost = (postID, postData) => {
+  return axios.put(`/api/posts/` + postID, postData);
 };
 // End User Post axios calls
 
@@ -48,12 +48,20 @@ export const newBookPost = bookPostData => {
 };
 
 export const getAllBookPost = postID => {
-  return axios.get(`/api/bookposts/post/postID`, postID);
+  return axios.get(`/api/bookposts/post/`+ postID);
 };
+
+export const updateBookPost = bookPostData => {
+  return axios.put(`/api/bookposts`, bookPostData)
+}
 
 export const getAllPostBook = bookID => {
   return axios.get(`/api/bookposts/book/${bookID}`);
 };
+
+export const deleteBookPost = postID => {
+  return axios.delete(`/api/bookposts/` + postID)
+}
 // End Book-Post axios calls
 
 // 4. Begin Category axios calls:
@@ -122,6 +130,14 @@ export const getAllMoviePost = postID => {
 export const getAllPostMovie = movieID => {
   return axios.hget(`/api/moviepost/movie/${movieID}`);
 };
+
+export const updateMoviePost = moviePostData => {
+  return axios.put(`/api/movieposts`, moviePostData)
+}
+
+export const deleteMoviePost = postID => {
+  return axios.delete(`/api/movieposts/` + postID)
+}
 // End Movie-Post axios calls
 
 // 8. Begin Song axios calls:
@@ -154,6 +170,14 @@ export const getAllSongPost = postID => {
 export const getAllPostSong = songID => {
   return axios.get(`/api/songpost/song/${songID}`);
 };
+
+export const updateSongPost = songPostData => {
+  return axios.put(`/api/songposts`, songPostData)
+}
+
+export const deleteSongPost = postID => {
+  return axios.delete(`/api/songposts/` + postID)
+}
 // End song-post axios calls
 
 // 10. Begin User axios calls:
@@ -166,7 +190,7 @@ export const login = loginData => {
 };
 
 export const register = registerData => {
-  axios.post(`/api/users/register`, registerData)
+  return axios.post(`/api/users/register`, registerData)
 };
 
 
@@ -202,6 +226,9 @@ export default {
   deletePostBook,
   deleteUserSong,
   deletePostMovie,
+  deleteBookPost,
+  deleteMoviePost,
+  deleteSongPost,
   getAllBookPost,
   getAllBooks,
   getAllCategories,
@@ -216,6 +243,7 @@ export default {
   getAllSongPost,
   getPostByCategory,
   getUserPost,
+  getUserPostById,
   getSongById,
   getBookById,
   getMovieById,
@@ -229,6 +257,9 @@ export default {
   newMoviePost,
   newCategoryPost,
   updateUserPost,
+  updateSongPost,
+  updateMoviePost,
+  updateBookPost
 }
 
 

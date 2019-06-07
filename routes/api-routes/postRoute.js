@@ -4,7 +4,9 @@ const {
   newPost,
   getUserPosts,
   deleteUserPost,
-  updateUserPost
+  updateUserPost,
+  getUserPostById
+
 } = require("../../controllers/postController")
 
 // GET and POST at /api/posts
@@ -17,7 +19,8 @@ router
   router
   .route("/:id")
   .put(withAuth, updateUserPost)
-  .delete(withAuth, deleteUserPost);
+  .delete(withAuth, deleteUserPost)
+  .get(withAuth, getUserPostById);
 
 
 module.exports = router;

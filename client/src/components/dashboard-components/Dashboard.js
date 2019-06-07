@@ -6,6 +6,7 @@ import NoteMedia from './NoteMedia'
 import Search from './Search/Search'
 import Banner from './Banner/Banner'
 import SaveNote from './Buttons/SaveNote'
+import UpdateNote from './Buttons/UpdateNote'
 import AddNote from './Buttons/AddNote'
 import API from '../../utils/API'
 import NotesCard from './NotesCard'
@@ -18,12 +19,14 @@ class Dashboard extends Component {
   // STATE
   state = {
     currentPage: "Notes",
+    activeBtn: "Save",
     activeTab: "Song",
     title: "",
     body: "",
     createdAt: "",
     userId: "",
     notes: [],
+    noteId: "",
     movieIds: [],
     movieResponse: [],
     songIds: [],
@@ -53,6 +56,83 @@ class Dashboard extends Component {
   handlePageChange = page => {
     this.setState({ currentPage: page });
   };
+
+  updateAndRender = (noteId) => {
+    // PUT note to database and saves all revised media to the post
+    API.updateUserPost(noteId,
+      {
+        title: this.state.title,
+        body: this.state.body
+      })
+      .then((updatedNoteData) => {
+        console.log(updatedNoteData);
+        this.getSavedNotes();
+
+      })
+      .catch(function (err) {
+        console.log(err)
+      });
+  }
+
+  handleDeleteMedia = (id) => {
+
+    if (this.state.activeTab === "Song") {
+
+      const newSongIds = this.state.songIds.filter(songId => id !== songId)
+      const newSongData = this.state.songResponse.filter(song => id !== song.id);
+
+      API.deleteSongPost(this.state.noteId)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(function (err) {
+        console.log(err);
+      })
+
+      this.setState({
+        songIds: newSongIds,
+        songResponse: newSongData
+      })
+    }
+    else if (this.state.activeTab === "Movie") {
+
+      const newMovieIds = this.state.movieIds.filter(movieId => id !== movieId)
+
+      const newMovieData = this.state.movieResponse.filter(movie => id !== movie.id);
+
+      API.deleteMoviePost(this.state.noteId)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(function (err) {
+        console.log(err);
+      })
+
+      this.setState({
+        movieIds: newMovieIds,
+        movieResponse: newMovieData
+      })
+    }
+    else if (this.state.activeTab === "Book") {
+
+      const newBookIds = this.state.bookIds.filter(bookId => id !== bookId)
+
+      const newBookData = this.state.bookResponse.filter(book => id !== book.id);
+
+      API.deleteBookPost(this.state.noteId)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(function (err) {
+        console.log(err);
+      })
+
+      this.setState({
+        bookIds: newBookIds,
+        bookResponse: newBookData
+      })
+    }
+  }
 
   saveAndRender = () => {
     // POST note to database and saves all relevant media to the post
@@ -92,7 +172,9 @@ class Dashboard extends Component {
 
         Promise
           .all([
-            ...songPostIdArray.map(idObj => API.newSongPost(idObj)), ...bookPostIdArray.map(idObj => API.newBookPost(idObj)), ...moviePostIdArray.map(idObj => API.newMoviePost(idObj))
+            ...songPostIdArray.map(idObj => API.newSongPost(idObj)),
+            ...bookPostIdArray.map(idObj => API.newBookPost(idObj)),
+            ...moviePostIdArray.map(idObj => API.newMoviePost(idObj))
           ])
           .then((data) => {
             console.log(data);
@@ -119,6 +201,8 @@ class Dashboard extends Component {
       });
 
   }
+
+
   // GET all user's posts including new one
   // will return array of all posts by this user
   getSavedNotes = () => {
@@ -146,6 +230,69 @@ class Dashboard extends Component {
       })
   }
   // end delete a post
+
+  // begin edit note
+
+  /* 
+   pressing save NOW needs to set a put request (not a post request) 
+
+
+   clear all the state fields 
+  */
+
+  noteEdit = (noteId) => {
+    //  take the note id and send it to state
+
+    const id = noteId;
+
+    API.getUserPostById(id)
+      .then(
+        response => {
+
+          let bookMapArr = response.data[0].Books.map(bookMap => bookMap)
+
+          let bookMap2 = bookMapArr.map(({ title, cover }) => {
+            return { title, cover }
+          });
+
+          let movieMapArr = response.data[0].Movies.map(movieMap => movieMap)
+
+          let movieMap2 = movieMapArr.map(({ title, poster }) => {
+            return { title, poster }
+          });
+
+          let songMapArr = response.data[0].Songs.map(songMap => songMap)
+
+          let songMap2 = songMapArr.map(({ title, albumCoverLarge }) => {
+            return { title, albumCoverLarge }
+          });
+
+          this.setState({
+            noteId: id,
+            title: response.data[0].title,
+            body: response.data[0].body,
+            movieResponse: movieMap2,
+            songResponse: songMap2,
+            bookResponse: bookMap2,
+          })
+        }
+
+      )
+      .catch(function (err) {
+        console.log(err);
+      })
+
+
+    this.setState({
+      title: "",
+      body: "",
+      movieResponse: [],
+      songResponse: [],
+      bookResponse: [],
+    })
+
+  }
+  // end edit note
 
   handleMovieIDs = (movieID) => {
     let movieIdsCopy = [...this.state.movieIds, movieID]
@@ -273,6 +420,7 @@ class Dashboard extends Component {
                       createdAt={createdAt}
                       body={body}
                       noteDelete={this.noteDelete}
+                      noteEdit={this.noteEdit}
                       key={id}
                     />
                   )
@@ -281,13 +429,21 @@ class Dashboard extends Component {
             </NotesBar>
             <div className="column col-12 col-md-6">
               <Notepad
+                id={this.state.noteId}
                 handleInputChange={this.handleInputChange}
                 title={this.state.title}
                 body={this.state.body}
               />
               <div className="row justify-content-between mx-3">
-                < AddNote />
-                < SaveNote saveAndRender={this.saveAndRender} />
+                < AddNote
+                />
+                < SaveNote
+                  saveAndRender={this.saveAndRender}
+                />
+                < UpdateNote
+                  id={this.state.noteId}
+                  updateAndRender={this.updateAndRender}
+                />
               </div>
             </div>
 
@@ -309,9 +465,11 @@ class Dashboard extends Component {
                     return (
                       <NoteMedia
                         key={movie.id}
+                        id={movie.id}
                         title={movie.title}
                         poster={movie.poster}
                         activeTab={this.state.activeTab}
+                        handleDeleteMedia={this.handleDeleteMedia}
                       />
                     )
                   })
@@ -323,9 +481,11 @@ class Dashboard extends Component {
                     return (
                       <NoteMedia
                         key={book.id}
+                        id={book.id}
                         title={book.title}
                         cover={book.cover}
                         activeTab={this.state.activeTab}
+                        handleDeleteMedia={this.handleDeleteMedia}
                       />
                     )
                   })
@@ -337,9 +497,11 @@ class Dashboard extends Component {
                     return (
                       <NoteMedia
                         key={song.id}
+                        id={song.id}
                         title={song.title}
-                        albumCoverSmall={song.albumCoverSmall}
+                        albumCoverLarge={song.albumCoverLarge}
                         activeTab={this.state.activeTab}
+                        handleDeleteMedia={this.handleDeleteMedia}
                       />
                     )
                   })

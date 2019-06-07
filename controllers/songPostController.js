@@ -10,7 +10,7 @@ const newSongPost = (req, res) => {
   } = req.body;
   SongPost.create({
     SongId, PostId
-    })
+  })
     .then(dbSongData => res.json(dbSongData))
     .catch(err => {
       console.log(err);
@@ -25,25 +25,59 @@ const getAllSongPost = async (req, res) => {
       PostId: req.params.postid
     }
   })
-  .then(dbSongPostData => res.json(dbSongPostData))
-  .catch(err => res.json(err));
+    .then(dbSongPostData => res.json(dbSongPostData))
+    .catch(err => res.json(err));
 }
 
 // get back posts related to Songs
 
-const getAllPostSong = async(req, res) => {
+const getAllPostSong = async (req, res) => {
   SongPost.findAll({
     where: {
       SongId: req.params.Songid
     }
   })
-  .then(dbSongPostData => res.json(dbSongPostData))
-  .catch(err => res.json(err));
+    .then(dbSongPostData => res.json(dbSongPostData))
+    .catch(err => res.json(err));
+}
+
+// update a SongPost
+const updateSongPost = (req, res) => {
+  const {
+    SongId, PostId
+  } = req.body;
+  SongPost.update({
+    SongId, PostId,
+  }, {
+      where: {
+        id: req.params.postid
+      }
+    })
+    .then(dbBookPostData => res.json(dbSongPostData))
+    .catch(err => {
+      console.log(err);
+      res.json(err);
+    });
+}
+
+// delete a SongPost
+const deleteSongPost = (req, res) => {
+  SongPost.destroy({
+    where: {
+      PostId: req.params.postid
+    }
+  })
+    .then(dbBookPostData => res.json(dbSongPostData))
+    .catch(err => {
+      console.log(err);
+      res.json(err);
+    });
 }
 
 module.exports = {
   newSongPost,
   getAllSongPost,
   getAllPostSong,
-
+  updateSongPost,
+  deleteSongPost
 };

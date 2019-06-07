@@ -19,12 +19,14 @@ function NotesCard(props) {
         <p className="card-text">
           {props.body}
         </p>
-        <div className="row justify-content-end">
-          <EditNote />
-          <DeleteNote
-            id={props.id}
-            noteDelete={props.noteDelete} />
-        </div>
+      </div>
+      <div className="row justify-content-end">
+        <EditNote 
+        noteEdit={props.noteEdit} 
+        id={props.id}/>
+        <DeleteNote
+          id={props.id}
+         noteDelete={props.noteDelete}/>
       </div>
     </div>
 

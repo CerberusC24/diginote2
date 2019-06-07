@@ -3,17 +3,23 @@ const withAuth = require("../../middleware/authentication");
 const {
   getAllMoviePost,
   getAllPostMovie,
-  newMoviePost
+  newMoviePost,
+  updateMoviePost,
+  deleteMoviePost
 } = require("../../controllers/moviepostController")
 
 router
   .route("/")
-  .post(withAuth, newMoviePost);
-router
-  .route("/post/:postid")
-  .get(withAuth, getAllMoviePost);
+  .post(withAuth, newMoviePost)
+
 router
   .route("/movie/:movieid")
   .get(withAuth, getAllPostMovie);
+router
+  .route("/:postid")
+  .get(withAuth, getAllMoviePost)
+  .put(withAuth, updateMoviePost)
+  .delete(withAuth, deleteMoviePost)
+
 
 module.exports = router;

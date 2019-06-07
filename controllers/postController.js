@@ -42,12 +42,16 @@ const getUserPosts = async (req, res) => {
 // getting the user's posts
 const getUserPostById = async (req, res) => {
 
-  const postId = req.body.id
+  const postId = req.params.id
 
   Post.findAll({
       where: {
         id: postId 
       },
+      include: [{
+        all: true,
+        nested: true
+      }]
     })
     .then(dbPostData => res.json(dbPostData))
     .catch(err => res.json(err));
@@ -75,8 +79,14 @@ const updateUserPost = async (req, res) => {
         id: req.params.id
       }
     })
-    .then(dbPostData => res.json(dbPostData))
-    .catch(err => res.json(err));
+    .then(dbPostData => {
+      console.log(dbPostData);
+      res.json(dbPostData)
+    })
+    .catch(err => {
+      console.log(err);
+      res.json(err)
+    });
 }
 
 // exporting

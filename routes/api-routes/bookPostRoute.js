@@ -1,18 +1,27 @@
 const router = require("express").Router();
+const withAuth = require('../../middleware/authentication');
 const {
   getAllBookPost,
   getAllPostBook,
-  newBookPost
+  newBookPost,
+  updateBookPost,
+  deleteBookPost
 } = require("../../controllers/bookPostController")
 
 router
   .route("/")
-  .post(newBookPost);
-router
-  .route("/post/:postid")
-  .get(getAllBookPost)
-router
+  .post(withAuth, newBookPost)
+  
+  router
   .route("/book/:bookid")
-  .get(getAllPostBook);
+  .get(withAuth, getAllPostBook);
+
+router
+  .route("/:postid")
+  .get(withAuth, getAllBookPost)
+  .put(withAuth, updateBookPost)
+  .delete(withAuth, deleteBookPost)
+  
+
 
 module.exports = router;
