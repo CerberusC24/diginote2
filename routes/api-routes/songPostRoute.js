@@ -3,17 +3,23 @@ const withAuth = require("../../middleware/authentication");
 const {
   getAllSongPost,
   getAllPostSong,
-  newSongPost
+  newSongPost,
+  updateSongPost,
+  deleteSongPost
 } = require("../../controllers/songpostController")
 
 router
   .route("/")
-  .post(withAuth, newSongPost);
-router
-  .route("/post/:postid")
-  .get(withAuth, getAllSongPost);
-router
+  .post(withAuth, newSongPost)
+
+  router
   .route("/song/:songid")
   .get(withAuth, getAllPostSong);
+  
+router
+  .route("/:postid")
+  .get(withAuth, getAllSongPost)
+  .put(withAuth, updateSongPost)
+  .delete(withAuth, deleteSongPost)
 
 module.exports = router;
