@@ -13,6 +13,7 @@ import NotesCard from './NotesCard'
 import BookMedia from './AllMedia/BookMedia'
 import SongMedia from './AllMedia/SongMedia'
 import MovieMedia from './AllMedia/MovieMedia'
+import Swal from 'sweetalert2'
 import './AllMedia/style.css'
 
 class Dashboard extends Component {
@@ -83,12 +84,12 @@ class Dashboard extends Component {
       const newSongData = this.state.songResponse.filter(song => id !== song.id);
 
       API.deleteSongPost(id, this.state.noteId)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch(function (err) {
-        console.log(err);
-      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch(function (err) {
+          console.log(err);
+        })
 
       this.setState({
         songIds: newSongIds,
@@ -101,12 +102,12 @@ class Dashboard extends Component {
       const newMovieData = this.state.movieResponse.filter(movie => id !== movie.id);
 
       API.deleteMoviePost(id, this.state.noteId)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch(function (err) {
-        console.log(err);
-      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch(function (err) {
+          console.log(err);
+        })
 
       this.setState({
         movieIds: newMovieIds,
@@ -119,18 +120,71 @@ class Dashboard extends Component {
       const newBookData = this.state.bookResponse.filter(book => id !== book.id);
 
       API.deleteBookPost(id, this.state.noteId)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch(function (err) {
-        console.log(err);
-      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch(function (err) {
+          console.log(err);
+        })
 
       this.setState({
         bookIds: newBookIds,
         bookResponse: newBookData
       })
     }
+  }
+
+  handleMediaBookDelete = (noteId, bookId) => {
+
+    console.log(this.state.bookInfo)
+    
+    const newBookInfo = this.state.bookInfo.filter(bookInfo => bookId !== bookInfo.BookPost.BookId)
+
+    API.deleteBookPost(noteId, bookId)
+    .then((response) => {
+      console.log(response);
+
+      this.setState({
+        bookInfo: newBookInfo
+      })
+    })
+    .catch(function (err) {
+      console.log(err);
+    })
+  }
+
+  handleMediaMovieDelete = (noteId, movieId) => {
+
+    const newMovieInfo = this.state.movieInfo.filter(movieInfo => movieId !== movieInfo.MoviePost.movieId)
+
+    API.deleteMoviePost(noteId, movieId)
+    .then((response) => {
+      console.log(response);
+
+      this.setState({
+        movieInfo: newMovieInfo
+      })
+    })
+    .catch(function (err) {
+      console.log(err);
+    })
+  }
+
+  handleMediaSongDelete = (noteId, songId) => {
+
+    const newSongInfo = this.state.songInfo.filter(songInfo => songId !== songInfo.SongPost.SongId)
+
+    API.deleteSongPost(noteId, songId)
+    .then((response) => {
+      console.log(response);
+
+      this.setState({
+        songInfo: newSongInfo
+      })
+    })
+    .catch(function (err) {
+      console.log(err);
+    })
   }
 
   saveAndRender = () => {
@@ -143,6 +197,7 @@ class Dashboard extends Component {
         const savedNoteId = savedNoteData.id;
 
         this.getSavedNotes()
+        this.pullMedia();
 
         // create array of objects
         // [{SongId: 1, PostId: 2}]
@@ -166,8 +221,6 @@ class Dashboard extends Component {
             PostId: savedNoteId
           }
         });
-
-        console.log(songPostIdArray, bookPostIdArray, moviePostIdArray);
 
         Promise
           .all([
@@ -201,6 +254,20 @@ class Dashboard extends Component {
 
   }
 
+  addNewNote = () => {
+    this.setState({
+      title: "",
+      body: "",
+      noteId: "",
+      movieIds: [],
+      songIds: [],
+      bookIds: [],
+      movieResponse: [],
+      songResponse: [],
+      bookResponse: []
+    })
+  }
+
 
   // GET all user's posts including new one
   // will return array of all posts by this user
@@ -230,15 +297,6 @@ class Dashboard extends Component {
   }
   // end delete a post
 
-  // begin edit note
-
-  /* 
-   pressing save NOW needs to set a put request (not a post request) 
-
-
-   clear all the state fields 
-  */
-
   noteEdit = (noteId) => {
     //  take the note id and send it to state
 
@@ -257,7 +315,7 @@ class Dashboard extends Component {
           let movieMapArr = response.data[0].Movies.map(movieMap => movieMap)
 
           let movieMap2 = movieMapArr.map(({ title, poster, id }) => {
-            return { title, poster , id}
+            return { title, poster, id }
           });
 
           let songMapArr = response.data[0].Songs.map(songMap => songMap)
@@ -357,44 +415,44 @@ class Dashboard extends Component {
   pullMedia = () => {
 
     API.getUserPost()
-    .then(
-      userPostResponse => {
-        
-        
-        const books = [];
-        userPostResponse.data.forEach(note => {
-          note.Books.forEach(book => {
-            books.push(book);
-          })
-        })
+      .then(
+        userPostResponse => {
 
-        const songs = [];
-        userPostResponse.data.forEach(note => {
-          note.Songs.forEach(song => {
-            songs.push(song);
+
+          const books = [];
+          userPostResponse.data.forEach(note => {
+            note.Books.forEach(book => {
+              books.push(book);
+            })
           })
-        })
-        
-        const movies = [];
-        userPostResponse.data.forEach(note => {
-          note.Movies.forEach(movie => {
-            movies.push(movie);
+
+          const songs = [];
+          userPostResponse.data.forEach(note => {
+            note.Songs.forEach(song => {
+              songs.push(song);
+            })
           })
-        })
-        
-        this.setState({
-          songInfo: songs,
-          movieInfo: movies,
-          bookInfo: books
-        })
-        // ~~~
-      }
-    )
-    .catch(function (err) {
-      console.log(err)
-    })
-    
-      
+
+          const movies = [];
+          userPostResponse.data.forEach(note => {
+            note.Movies.forEach(movie => {
+              movies.push(movie);
+            })
+          })
+
+          this.setState({
+            songInfo: songs,
+            movieInfo: movies,
+            bookInfo: books
+          })
+          // ~~~
+        }
+      )
+      .catch(function (err) {
+        console.log(err)
+      })
+
+
   }
   // update this.state.currentTab (this will be passed into the Search component)
   handleMediaChange = (tabName) => {
@@ -402,6 +460,51 @@ class Dashboard extends Component {
       activeTab: tabName,
     })
   }
+
+  // begin functions for sweet alerts on the media page:
+  handleBookAlert = (id) => {
+    API.getBookById(id)
+      .then(response => {
+        Swal.fire({
+          title: `Plot Synopsis`,
+          allowOutsideClick: true,
+          allowEscapeKey: true,
+          allowEnterKey: true,
+          showConfirmButton: false,
+          text: `${response.data[0].plot}`
+        })
+      })
+  }
+
+  handleMovieAlert = (id) => {
+    API.getMovieById(id)
+      .then(response => {
+        Swal.fire({
+          title: `Plot Synopsis`,
+          allowOutsideClick: true,
+          allowEscapeKey: true,
+          allowEnterKey: true,
+          showConfirmButton: false,
+          text: `${response.data[0].plot}`
+        })
+      })
+  }
+
+  handleSongAlert = (id) => {
+    API.getSongById(id)
+      .then(response => {
+        Swal.fire({
+          title: `Song Preview`,
+          allowOutsideClick: true,
+          allowEscapeKey: true,
+          allowEnterKey: true,
+          showConfirmButton: false,
+          html: `<audio src=${response.data[0].previewLink} controls></audio>`
+        })
+      })
+  }
+  // end functions for sweet alerts
+
 
 
   // RENDERS ACTIVE PAGE
@@ -444,6 +547,7 @@ class Dashboard extends Component {
               />
               <div className="row justify-content-between mx-3">
                 < AddNote
+                  addNewNote={this.addNewNote}
                 />
                 < SaveNote
                   saveAndRender={this.saveAndRender}
@@ -523,39 +627,59 @@ class Dashboard extends Component {
     // RETURNS MEDIA PAGE
 
     if (this.state.currentPage === "Media") {
-          //  ~~~~
+      //  ~~~~
 
       const { bookInfo } = this.state;
       const { songInfo } = this.state;
       const { movieInfo } = this.state;
-      
-      const songComponent = songInfo.map(({ id, albumCoverLarge, title, artist }) => {
+
+      console.log(bookInfo, songInfo, movieInfo)
+
+      const songComponent = songInfo.map(({ id, albumCoverLarge, title, artist, previewLink, SongPost }) => {
         return (
           <SongMedia
             id={id}
             albumCoverLarge={albumCoverLarge}
             title={title}
             artist={artist}
+            previewLink={previewLink}
+            handleSongAlert={this.handleSongAlert}
+            handleMediaSongDelete={this.handleMediaSongDelete}
+            PostId={SongPost.PostId}
+            SongId={SongPost.SongId}
             key={id}
           />
         )
       })
-      const bookComponent = bookInfo.map(({ id, cover, title, author }) => {
+      const bookComponent = bookInfo.map(({ id, cover, title, author, plot, BookPost }) => {
 
         return (
-          <BookMedia id={id}
+          <BookMedia 
+            id={id}
+            // PostId={PostId}
             title={title}
             cover={cover}
+            plot={plot}
             author={author}
+            handleBookAlert={this.handleBookAlert}
+            handleMediaBookDelete={this.handleMediaBookDelete}
+            PostId={BookPost.PostId}
+            BookId={BookPost.BookId}
             key={id} />
         )
       })
-      const movieComponent = movieInfo.map(({ id, poster, title }) => {
+      const movieComponent = movieInfo.map(({ id, poster, title, plot, MoviePost }) => {
 
         return (
-          <MovieMedia id={id}
+          <MovieMedia 
+            id={id}
             title={title}
             poster={poster}
+            plot={plot}
+            handleMovieAlert={this.handleMovieAlert}
+            handleMediaMovieDelete={this.handleMediaMovieDelete}
+            PostId={MoviePost.PostId}
+            MovieId={MoviePost.MovieId}
             key={id} />
         )
       })
@@ -581,7 +705,7 @@ class Dashboard extends Component {
             <div className="card-header">
               Movies
             </div>
-            <div className="carousel">
+            <div className="carousel mb-3">
               {movieComponent}
             </div>
           </div>
