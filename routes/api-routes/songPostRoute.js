@@ -6,7 +6,7 @@ const {
   newSongPost,
   updateSongPost,
   deleteSongPost
-} = require("../../controllers/songpostController")
+} = require("../../controllers/songPostController")
 
 router
   .route("/")
