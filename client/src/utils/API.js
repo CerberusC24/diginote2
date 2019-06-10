@@ -175,8 +175,8 @@ export const updateSongPost = songPostData => {
   return axios.put(`/api/songposts`, songPostData)
 }
 
-export const deleteSongPost = songID => {
-  return axios.delete(`/api/songposts/` + songID)
+export const deleteSongPost = (songID, postID) => {
+  return axios.delete(`/api/songposts/${songID}/${postID}`)
 }
 // End song-post axios calls
 
