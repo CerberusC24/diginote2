@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { spotifyThis } from'../../../utils/API'
+import { spotifyThis } from '../../../utils/API'
 
 class SongInput extends Component {
   state = {
@@ -22,13 +22,13 @@ class SongInput extends Component {
   songSearch = event => {
     event.preventDefault();
 
-    let searchCriteria= {
+    let searchCriteria = {
       title: this.state.title,
       artist: this.state.artist
     }
 
     spotifyThis(searchCriteria)
-      .then(({data: songInfo}) => {
+      .then(({ data: songInfo }) => {
 
         this.setState({
           songId: songInfo.id,
@@ -45,20 +45,20 @@ class SongInput extends Component {
         <label htmlFor="title">
           Song Title
         </label>
-        <input id="title" type="text" value={this.state.title}placeholder="Song Title" onChange={this.handleInputChange} name="title" />
+        <input id="title" type="text" value={this.state.title} placeholder="Song Title" onChange={this.handleInputChange} name="title" />
 
 
         <label htmlFor="artist">
           Artist Name
         </label>
-        <input id="artist" type="text" value={this.state.artist} placeholder="Artist" onChange={this.handleInputChange} name="artist"/>
+        <input id="artist" type="text" value={this.state.artist} placeholder="Artist" onChange={this.handleInputChange} name="artist" />
 
-        <input type="submit" className="btn btn-info btn-sm mt-4" value="Add Song"
+        <input type="submit" className="btn btn-primary btn-sm mt-4" value="Add Song"
         />
       </form>
     )
   }
-  
+
 }
 
 export default SongInput;

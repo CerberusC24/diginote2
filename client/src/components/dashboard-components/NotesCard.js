@@ -7,26 +7,21 @@ import EditNote from './Buttons/EditNote'
 function NotesCard(props) {
 
   return (
-
-    <div className="list-group-item">
+    <div className="card border-primary mb-3">
+      <h4 className="card-header">{props.title}</h4>
       <div className="card-body">
-        <h5 className="card-title">
-          {props.title}
-        </h5>
-        <h6 className="card-subtitle mb-2 text-muted">
+        <h6 className="card-subtitle mb-2">
           {moment(props.createdAt).format("MMMM Do, YYYY [at] hh:mm A")}
         </h6>
-        <p className="card-text">
-          {props.body}
-        </p>
+        <p className="card-text">{props.body}.</p>
       </div>
-      <div className="row justify-content-end">
-        <EditNote 
-        noteEdit={props.noteEdit} 
-        id={props.id}/>
+      <div className="row btn-group mb-2 mx-2">
+        <EditNote
+          noteEdit={props.noteEdit}
+          id={props.id} />
         <DeleteNote
           id={props.id}
-         noteDelete={props.noteDelete}/>
+          noteDelete={props.noteDelete} />
       </div>
     </div>
 

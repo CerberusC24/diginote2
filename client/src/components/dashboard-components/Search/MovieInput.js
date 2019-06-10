@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { movieThis } from'../../../utils/API'
+import { movieThis } from '../../../utils/API'
 
 class MovieInput extends Component {
   state = {
@@ -25,12 +25,12 @@ class MovieInput extends Component {
       return alert("please put something into the search box!")
     }
 
-    let searchCriteria= {
+    let searchCriteria = {
       title: this.state.title,
     }
 
     movieThis(searchCriteria)
-      .then(({data: movieInfo}) => {
+      .then(({ data: movieInfo }) => {
 
         this.setState({
           movieId: movieInfo.id,
@@ -41,19 +41,19 @@ class MovieInput extends Component {
 
 
   }
-  render () {
+  render() {
     return (
       <form onSubmit={this.movieSearch} className="d-flex flex-column">
         <label htmlFor="title">
           Movie Title
         </label>
-        <input type="text" placeholder="Movie Title" id="title" name="title" value={this.state.title} onChange={this.handleInputChange}/>
-        
-        <input type="submit" className="btn btn-info btn-sm mt-4" value="Add Movie" />
+        <input type="text" placeholder="Movie Title" id="title" name="title" value={this.state.title} onChange={this.handleInputChange} />
+
+        <input type="submit" className="btn btn-primary btn-sm mt-4" value="Add Movie" />
       </form>
     )
   }
-  
+
 }
 
 export default MovieInput;

@@ -3,19 +3,19 @@ import './style.css'
 
 function BookMedia(props) {
   return (
-    <div className="card text-center">
-      <div className="card-body">
-        <img className="card-img-top" src={props.cover} alt="Card" />
-        <h4 className="card-title">{props.title}</h4>
-        <h6 className="card-subtitle mb-2 text-muted">{props.author}</h6>
-        <button 
-        className="btn btn-primary btn-info"
-        onClick={() => props.handleBookAlert(props.id)}>
-          <i class="fas fa-info"></i>
+    <div className="card mb-3 text-center">
+      <h3 className="card-header">
+        {props.title}
+      </h3>
+      <img src={props.cover}
+        className="card-img-top mx-auto"
+        alt={props.title}
+        style={{ height: '200px', width: '100%', display: 'block' }} />
+      <div className="card-body btn-group">
+        <button className="btn btn-primary btn-info" onClick={() => props.handleBookAlert(props.id)}>
+          <i className="fas fa-info"></i>
         </button>
-        <button 
-        className="btn btn-danger"
-        onClick={() => props.handleMediaBookDelete(props.BookId, props.PostId)}>
+        <button className="btn btn-secondary" onClick={() => props.handleMediaBookDelete(props.BookId, props.PostId)}>
           <i className="far fa-trash-alt"></i>
         </button>
       </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import BookInput from './BookInput'
 import MovieInput from './MovieInput'
 import SongInput from './SongInput'
@@ -21,14 +21,14 @@ function Search(props) {
             ...activeTab,name: "Song", tab: <SongInput
             handleSongIDs={props.handleSongIDs} />
             }
-          )}} className="btn btn-info">Song</button>
+          )}} className="btn btn-primary">Song</button>
 
           <button onClick={() => {
             props.handleMediaChange("Book");
             setActiveTab({
             ...activeTab, name: "Book", tab: <BookInput
             handleBookIDs={props.handleBookIDs} />
-          })}} className="btn btn-info
+          })}} className="btn btn-primary
          ">Book</button>
 
           <button onClick={() => {
@@ -36,7 +36,7 @@ function Search(props) {
             setActiveTab({
             ...activeTab, name: "Movie", tab: <MovieInput
             handleMovieIDs={props.handleMovieIDs} />
-          })}} className="btn btn-info
+          })}} className="btn btn-primary
          ">Movie</button>
 
         </div>
