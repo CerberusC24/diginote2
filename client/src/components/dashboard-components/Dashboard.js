@@ -138,15 +138,11 @@ class Dashboard extends Component {
 
     console.log(this.state.bookInfo)
 
-    const newBookInfo = this.state.bookInfo.filter(bookInfo => bookId !== bookInfo.BookPost.BookId)
-
     API.deleteBookPost(noteId, bookId)
       .then((response) => {
         console.log(response);
 
-        this.setState({
-          bookInfo: newBookInfo
-        })
+        this.getSavedNotes()
       })
       .catch(function (err) {
         console.log(err);
@@ -155,15 +151,11 @@ class Dashboard extends Component {
 
   handleMediaMovieDelete = (noteId, movieId) => {
 
-    const newMovieInfo = this.state.movieInfo.filter(movieInfo => movieId !== movieInfo.MoviePost.movieId)
-
     API.deleteMoviePost(noteId, movieId)
       .then((response) => {
         console.log(response);
 
-        this.setState({
-          movieInfo: newMovieInfo
-        })
+        this.getSavedNotes()
       })
       .catch(function (err) {
         console.log(err);
@@ -172,15 +164,11 @@ class Dashboard extends Component {
 
   handleMediaSongDelete = (noteId, songId) => {
 
-    const newSongInfo = this.state.songInfo.filter(songInfo => songId !== songInfo.SongPost.SongId)
-
     API.deleteSongPost(noteId, songId)
       .then((response) => {
         console.log(response);
 
-        this.setState({
-          songInfo: newSongInfo
-        })
+        this.getSavedNotes()
       })
       .catch(function (err) {
         console.log(err);
