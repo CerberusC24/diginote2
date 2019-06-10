@@ -11,10 +11,10 @@ function SongMedia(props) {
         alt={props.title}
         style={{ height: '200px', width: '100%', display: 'block' }} />
       <div className="card-body btn-group">
-        <button className="btn btn-primary btn-info">
+        <button className="btn btn-primary btn-info" onClick={() => props.handleSongAlert(props.id)}>
           <i className="fas fa-info"></i>
         </button>
-        <button className="btn btn-secondary">
+        <button className="btn btn-secondary" onClick={() => props.handleMediaSongDelete(props.SongId, props.PostId)}>
           <i className="far fa-trash-alt"></i>
         </button>
       </div>
