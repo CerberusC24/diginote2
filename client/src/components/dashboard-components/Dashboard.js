@@ -33,7 +33,7 @@ class Dashboard extends Component {
     songResponse: [],
     bookIds: [],
     bookResponse: [],
-    bookInfo: []
+    bookInfo: [],
   };
 
   componentDidMount() {
@@ -75,13 +75,14 @@ class Dashboard extends Component {
   }
 
   handleDeleteMedia = (id) => {
+    console.log(id)
 
     if (this.state.activeTab === "Song") {
 
       const newSongIds = this.state.songIds.filter(songId => id !== songId)
       const newSongData = this.state.songResponse.filter(song => id !== song.id);
 
-      API.deleteSongPost(this.state.noteId)
+      API.deleteSongPost(id, this.state.noteId)
         .then((response) => {
           console.log(response);
         })
@@ -97,10 +98,9 @@ class Dashboard extends Component {
     else if (this.state.activeTab === "Movie") {
 
       const newMovieIds = this.state.movieIds.filter(movieId => id !== movieId)
-
       const newMovieData = this.state.movieResponse.filter(movie => id !== movie.id);
 
-      API.deleteMoviePost(this.state.noteId)
+      API.deleteMoviePost(id, this.state.noteId)
         .then((response) => {
           console.log(response);
         })
@@ -116,10 +116,9 @@ class Dashboard extends Component {
     else if (this.state.activeTab === "Book") {
 
       const newBookIds = this.state.bookIds.filter(bookId => id !== bookId)
-
       const newBookData = this.state.bookResponse.filter(book => id !== book.id);
 
-      API.deleteBookPost(this.state.noteId)
+      API.deleteBookPost(id, this.state.noteId)
         .then((response) => {
           console.log(response);
         })
@@ -251,20 +250,20 @@ class Dashboard extends Component {
 
           let bookMapArr = response.data[0].Books.map(bookMap => bookMap)
 
-          let bookMap2 = bookMapArr.map(({ title, cover }) => {
-            return { title, cover }
+          let bookMap2 = bookMapArr.map(({ title, cover, id }) => {
+            return { title, cover, id }
           });
 
           let movieMapArr = response.data[0].Movies.map(movieMap => movieMap)
 
-          let movieMap2 = movieMapArr.map(({ title, poster }) => {
-            return { title, poster }
+          let movieMap2 = movieMapArr.map(({ title, poster, id }) => {
+            return { title, poster, id }
           });
 
           let songMapArr = response.data[0].Songs.map(songMap => songMap)
 
-          let songMap2 = songMapArr.map(({ title, albumCoverLarge }) => {
-            return { title, albumCoverLarge }
+          let songMap2 = songMapArr.map(({ title, albumCoverLarge, id }) => {
+            return { title, albumCoverLarge, id }
           });
 
           this.setState({
@@ -525,10 +524,10 @@ class Dashboard extends Component {
 
     if (this.state.currentPage === "Media") {
       //  ~~~~
+
       const { bookInfo } = this.state;
       const { songInfo } = this.state;
       const { movieInfo } = this.state;
-      console.log(bookInfo);
 
       const songComponent = songInfo.map(({ id, albumCoverLarge, title, artist }) => {
         return (
