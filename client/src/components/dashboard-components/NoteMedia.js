@@ -24,8 +24,8 @@ function NoteMedia(props) {
       case 'Song':
         return (
           <div className="card text-center">
-            <img src={props.albumCoverSmall}
-              className="card-img-top"
+            <img src={props.albumCoverLarge}
+              className="card-img-top mx-auto mt-2"
               alt={props.title} />
             <div className="card-body">
               <h5 className="card-title text-center">{props.title}
