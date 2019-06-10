@@ -1,5 +1,5 @@
 import React from "react";
-import "./home-style.css";
+import '../dashboard-components/main.css'
 
 
 function RegisterForm(props) {
@@ -31,10 +31,11 @@ function RegisterForm(props) {
           Password
         </label>
         <input id="password" className="form-control form-control-lg" type="password" placeholder="Password" onChange={props.handleInputChange} value={props.password} name="password" />
+        <div className="mt-2">
+          <input type="submit" className="btn btn-primary" />
 
-        <input type="submit" className="btn btn-primary" />
-
-        <input type="button" className="btn btn-primary" onClick={props.loginClick} value="Login Existing User" />
+          <input type="button" className="btn btn-primary" onClick={props.loginClick} value="Login Existing User" />
+        </div>
       </div>
     </form>
   )

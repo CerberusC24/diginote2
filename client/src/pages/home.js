@@ -131,8 +131,9 @@ class Home extends Component {
 
       <Hero>
         {this.redirect(this.state.token)}
-        <div className="home-form">
-          {this.state.register ?
+        {this.state.register ?
+          <div>
+            <h1 className="text-center">Register</h1>
             <RegisterForm
               handleOnSubmit={this.handleRegisterSubmit}
               handleInputChange={this.handleInputChange}
@@ -140,8 +141,11 @@ class Home extends Component {
               lastName={this.state.lastName}
               password={this.state.password}
               loginClick={this.loginClick}
-
-            /> :
+            />
+          </div>
+          :
+          <div>
+            <h1 className="text-center">Login</h1>
             <LoginForm
               handleOnSubmit={this.handleLoginSubmit}
               handleInputChange={this.handleInputChange}
@@ -149,8 +153,8 @@ class Home extends Component {
               password={this.state.password}
               registerClick={this.handleRegisterClick}
             />
-          }
-        </div>
+          </div>
+        }
       </Hero>
 
     )

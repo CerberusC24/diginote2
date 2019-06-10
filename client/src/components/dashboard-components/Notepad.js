@@ -1,10 +1,12 @@
 import React from 'react';
+import './main.css'
+
+
 
 function Notepad(props) {
 
   return (
     <form className="col-12 col-md" >
-      <h1 className="display-4">Your Notepad</h1>
       <div className="form-group">
         <input
           name="title"
@@ -19,7 +21,7 @@ function Notepad(props) {
           value={props.body}
           className="form-control"
           id="noteTaker"
-          rows="20"
+          rows="15"
           placeholder="Write your note here..."></textarea>
       </div>
     </form>

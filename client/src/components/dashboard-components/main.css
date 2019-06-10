@@ -31,12 +31,37 @@ body {
 
 }
 
-.home-form {
-  justify-content: center;
+.main-font {
+  font-family: 'Source Sans Pro',
+    sans-serif;
 }
 
 .diginote-font {
   font-family: 'Baloo Bhai',
     cursive;
+  color: #148CBA;
 
 }
+
+.box-shadow {
+  box-shadow: 5px 5px 10px black;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 150px;
+  justify-content: center;
+  margin: auto;
+  margin-top: 5vh;
+}
+
+img {
+  max-width: 150px;
+  justify-content: center;
+}
+
+.banner-blend {
+  margin-top: -70px;
+}
+
+.media {}

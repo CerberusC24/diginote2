@@ -2,19 +2,21 @@ import React from 'react';
 
 function MovieMedia(props) {
   return (
-
-    <div className="card text-center">
-      <div className="card-body">
-        <img className="card-img-top" src={props.poster} alt="Card" />
-        <h4 className="card-title">{props.title}</h4>
-        <div className="row justify-space-between">
-          <button className="btn btn-primary btn-info">
-            <i class="fas fa-info"></i>
-          </button>
-          <button className="btn btn-danger">
-            <i className="far fa-trash-alt"></i>
-          </button>
-        </div>
+    <div className="card mb-3 text-center">
+      <h3 className="card-header">
+        {props.title}
+      </h3>
+      <img src={props.poster}
+        className="card-img-top mx-auto"
+        alt={props.title}
+        style={{ height: '200px', width: '100%', display: 'block' }} />
+      <div className="card-body btn-group">
+        <button className="btn btn-primary btn-info">
+          <i className="fas fa-info"></i>
+        </button>
+        <button className="btn btn-secondary">
+          <i className="far fa-trash-alt"></i>
+        </button>
       </div>
     </div>
   )

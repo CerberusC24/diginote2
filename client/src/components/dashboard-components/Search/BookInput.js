@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getGoogleBook } from'../../../utils/API'
+import { getGoogleBook } from '../../../utils/API'
 
 class BookInput extends Component {
 
@@ -27,7 +27,7 @@ class BookInput extends Component {
       return alert("please put something into the search box!")
     }
 
-    let searchCriteria= {
+    let searchCriteria = {
       title: this.state.title,
       author: this.state.author
     }
@@ -35,7 +35,7 @@ class BookInput extends Component {
 
 
     getGoogleBook(searchCriteria)
-      .then(({data: bookInfo}) => {
+      .then(({ data: bookInfo }) => {
 
         this.setState({
           bookId: bookInfo.id,
@@ -44,34 +44,34 @@ class BookInput extends Component {
         }, () => {
           this.props.handleBookIDs(this.state.bookId)
         })
-       
+
       })
       .catch(err => console.log(err));
-     
+
   }
 
-  render () {
+  render() {
     return (
       <form onSubmit={this.bookSearch} className="d-flex flex-column">
         <label htmlFor="title">
           Book Title
         </label>
         <input
-        value={this.state.title}
-        type="text" placeholder="Book Title" onChange={this.handleInputChange} name="title" id="title" />
+          value={this.state.title}
+          type="text" placeholder="Book Title" onChange={this.handleInputChange} name="title" id="title" />
 
         <label htmlFor="author">
           Book Author
         </label>
         <input
-        value={this.state.author}
-        type="text" placeholder="Book Author" onChange={this.handleInputChange} name="author" id="author" />
+          value={this.state.author}
+          type="text" placeholder="Book Author" onChange={this.handleInputChange} name="author" id="author" />
 
-        <input type="submit" className="btn btn-info btn-sm mt-4" value="Add Book" />
+        <input type="submit" className="btn btn-primary btn-sm mt-4" value="Add Book" />
       </form>
     )
   }
-  
+
 }
 
 export default BookInput;

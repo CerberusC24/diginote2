@@ -413,10 +413,9 @@ class Dashboard extends Component {
       // NOTE PAGE RETURNS MAIN DASHBOARD SET UP
       return (
         <React.Fragment>
-          <div>
-            < Banner />
-          </div>
-          <div className="container-fluid row mt-5">
+          < Banner />
+
+          <div className="container-fluid row banner-blend">
             <NotesBar>
               {
                 notes.map(({ id, title, createdAt, body }) => {
@@ -435,7 +434,8 @@ class Dashboard extends Component {
                 })
               }
             </NotesBar>
-            <div className="column col-12 col-md-6">
+            <div className="column col-12 col-md">
+              <h1 className="main-font text-light display-4 text-center mb-3"> Notepad</h1>
               <Notepad
                 id={this.state.noteId}
                 handleInputChange={this.handleInputChange}
@@ -458,7 +458,7 @@ class Dashboard extends Component {
 
             {/* check status of this.state.current page and render Notemedia with respective array of data (i.e. movie list, song list, book list) */}
             <div className="col-12 col-md-3">
-              <h1 className="display-4">
+              <h1 className="display-4 main-font text-light text-center mb-3">
                 Search
               </h1>
               <Search
@@ -561,26 +561,26 @@ class Dashboard extends Component {
       })
       return (
         <React.Fragment>
+          <div className="card-header text-center">
+            <h2>Songs</h2>
+          </div>
           <div className="card-group">
-            <div className="card-header">
-              Songs
-            </div>
             <div className="carousel">
               {songComponent}
             </div>
           </div>
+          <div className="card-header text-center">
+            <h2>Books</h2>
+          </div>
           <div className="card-group">
-            <div className="card-header">
-              Books
-            </div>
             <div className="carousel">
               {bookComponent}
             </div>
           </div>
+          <div className="card-header text-center">
+            <h2>Movies</h2>
+          </div>
           <div className="card-group">
-            <div className="card-header">
-              Movies
-            </div>
             <div className="carousel">
               {movieComponent}
             </div>
