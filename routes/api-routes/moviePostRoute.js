@@ -6,7 +6,7 @@ const {
   newMoviePost,
   updateMoviePost,
   deleteMoviePost
-} = require("../../controllers/moviepostController")
+} = require("../../controllers/moviePostController")
 
 router
   .route("/")
