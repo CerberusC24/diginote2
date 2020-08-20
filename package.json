@@ -24,7 +24,7 @@
   "homepage": "https://github.com/CerberusC24/diginote2#readme",
   "dependencies": {
     "axios": "^0.19.0",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.4",
     "dotenv": "^8.0.0",
     "express": "^4.16.4",
